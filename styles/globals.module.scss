@@ -1,0 +1,77 @@
+$height: 100vh;
+$width: 100vw;
+
+@function heightWrapper($value){
+    @return ($height - ($height - $value));
+}
+@function widthWrapper($value){
+    @return ($width - ($width    - $value));
+}
+
+.titileContent{
+    font-size: widthWrapper(2);
+}
+
+.descriptionContent{
+    font-size: widthWrapper(1.2);
+}
+
+.buttonText{
+    font-size: widthWrapper(1.25);
+    margin-top: heightWrapper(2);
+    color: #2178eb;
+}
+
+.buttonText:hover{
+    color: #4e1d8a;
+    cursor: pointer;
+}
+
+.wrapper{
+    position: relative;
+    padding: heightWrapper(5) widthWrapper(5);
+    clear:both;
+    width: $width;
+    vertical-align: middle;
+    justify-content: center;
+    justify-items: center;
+}
+
+.screens{
+    display: flex;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: $width;
+    justify-content: center;
+    justify-items: center;
+    flex-wrap: wrap;
+    min-height: heightWrapper(100);
+    z-index: 0;
+}
+
+.body{
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: heightWrapper(100);
+}
+
+.footer {
+    bottom: 0%;
+    min-height: heightWrapper(30);
+    background-color: #747677;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    display: flex;
+    border-top: 1px solid #eaeaea;
+    justify-content: center;
+    align-items: center;
+    width: $width;
+    z-index: 0;
+}
+.alignHorizontal{
+    display: flex;
+}
+
+.logoFooter{
+    width: widthWrapper(10);
+}
