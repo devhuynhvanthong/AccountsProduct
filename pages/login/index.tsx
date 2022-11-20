@@ -1,123 +1,145 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import Footer from '../../src/components/mains/FooterComponent'
+import { useEffect,useState,useMemo } from 'react'
 import useWindowDimensions from '../../src/components/uses/WindowDimensions'
-import styles from '../../styles/Home.module.css'
-import { post } from '../../utils/CallApi'
-import Constants from '../../utils/Constants'
-import Cookies from '../../utils/Cookies'
-import Library from '../../utils/Library'
-import Urls from '../../utils/Urls'
-import Validation from '../../utils/Validations'
-import loginMobile ; LoginComponent from '../../src/components/desktops/accounts/LoginComponent'
-import LoginComponent as loginDesktop from '../../src/components/mobiles/accounts/LoginComponent'
-export default function login(){
-    
-    const cookie = Cookies()
-    const library = Library()
-    const validation = Validation()
-    const constants = Constants()
-    const urls = Urls()
+import LoginDesktopComponent from '../../src/components/desktops/accounts/Login/LoginComponent'
+import LoginMobileComponent from '../../src/components/mobiles/accounts/Login/LoginComponent'
+import HeaderComponent from '../../src/components/mains/HeaderComponent'
+import LayoutMobile from '../../src/components/mains/LayoutMobile'
+import LayoutDesktop from '../../src/components/mains/LayoutDesktop'
+import Publics_ from '../../utils/Publics'
+
+export default function Login(){
+
+    const publics = Publics_()
     const router = useRouter()
+    const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
+    const [errorUsername,setErrorUsername] = useState(publics.validation.FIELD_REQUIRED)
+    const [isShowErrorPassword,setShowErrorPassword] = useState(false)
+    const [isShowErrorUsername,setShowErrorUsername] = useState(false)
+    const [isClickLogin,setClickLogin] = useState(true)
+    const [username,setUsername] = useState("")
+    const [password,setPassword] = useState("")
+
     let domain: string | string[] | undefined = undefined
     let {height_,width_} = useWindowDimensions()
     useEffect(()=> {
-        if(library.checkLogin()){
+        if(publics.library.checkLogin()){
           router.push('/')
         }
         domain = router.query.domain
       },[])
 
-    const [isShowErrorPassword,setShowErrorPassword] = useState(true)
-    const [isShowErrorUsername,setShowErrorUsername] = useState(true)
-    const [errorPassword,setErrorPassword] = useState(validation.FIELD_REQUIRED)
-    const [errorUsername,setErrorUsername] = useState(validation.FIELD_REQUIRED)
-    const [isClickLogin,setClickLogin] = useState(true)
-    const tranferPageBeforLogin = async () => {
+      const tranferPageBeforLogin = async (event_:Event) => {
         if(domain != undefined){
             try{
-                const query = await post(urls.URL_GET_DOMAIN,{
+                const query = await publics.api.post(publics.url.URL_GET_DOMAIN,{
                     code_service: domain
                 },"")
-                if(query.status==constants.SUCCESS){
-                    library.startPageUrl(query.data)
+                if(query.status==publics.constant.SUCCESS){
+                    publics.library.startPageUrl(query.data)
                 }else{
-                    library.reloadPage(true)
+                    router.push("/")
                 }
             }catch(e){
-                library.reloadPage(true)
+                router.push("/")
             }
           }else{
-            library.reloadPage(true)
+            router.push("/")
           }
     }
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (event_: Event) => {
         if(isClickLogin){
-            let username_ = document.getElementById('username').value
-            let password_ = document.getElementById('password').value
-            if (username_.length <= 0) {
-                setShowErrorUsername(false)
+            if (username.length <= 0) {
+                setShowErrorUsername(true)
             }
     
-            if (password_.length <= 0) {
-                setShowErrorPassword(false)
+            if (password.length <= 0) {
+                setShowErrorPassword(true)
             }
-    
-            if (password_.length > 0 && username_.length > 0) {
+
+            if (password.length > 0 && username.length > 0) {
                 let body = {
-                    username: username_,
-                    password: password_
+                    username: username,
+                    password: password
                 }
                 setClickLogin(false)
-                let data = await post(urls.URL_LOGIN, body)
-                if(data.status==constants.SUCCESS){
-                    setClickLogin(true)
-                    library.createNotification(constants.SUCCESS,validation.LOGIN_SUCCES)
+                let data = await publics.api.post(publics.url.URL_LOGIN, body)
+                if(data.status==publics.constant.SUCCESS){
+                    publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCES)
                     let data_ = {
                         accsessToken : data.data.data.accsess_token,
-                        date: library.getDateTime()
+                        date: publics.library.getDateTime()
                     }
-                    const keys = constants.KEY_ACCESS_TOKEN
-                    cookie.Set(keys,data_)
-                    tranferPageBeforLogin(e)
+                    const keys = publics.constant.KEY_ACCESS_TOKEN
+                    publics.cookie.Set(keys,data_)
+                    tranferPageBeforLogin(event_)
                 }else{
                     setClickLogin(true)
-                    document.getElementById('password').value = ""
-                    library.createNotification(constants.ERROR,validation.LOGIN_FAILED) 
+                    setPassword("")
+                    publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
                 }
             }
-        }
-        
+        }        
     }
 
-    const handleEnterPassword = () => {
-        setShowErrorPassword(true)
+    const handleEnterPassword = (event_: any) => {
+        setPassword(event_.target.value)
+        setShowErrorPassword(false)
     }
 
-    const handleEnterUsername = () => {
-        setShowErrorUsername(true)
+    const handleEnterUsername = (event_: any) => {
+        setUsername(event_.target.value)
+        setShowErrorUsername(false)
     }
 
     const handleForgotPassword = () => {
-        library.createNotification(constants.WARNING,validation.FEATURE_NOT_DEVELOP)
+        publics.library.createNotification(publics.constant.WARNING,publics.validation.FEATURE_NOT_DEVELOP)
     }
+    
+    const handleRegister = () => {
+        router.push(publics.url.PATH_REGISTER)
+    }
+    const variables = {
+        password: password,
+        setPassword: setPassword,
+        username: username,
+        setUsername: setUsername,
+        setShowErrorUsername: setShowErrorUsername,
+        setShowErrorPassword: setShowErrorPassword,
+        errorPassword: errorPassword,
+        errorUsername: errorUsername,
+        setErrorUsername: setErrorUsername,
+        setErrorPassword: setErrorPassword,
+        setClickLogin: setClickLogin,
+        isClickLogin:isClickLogin,
+        isShowErrorPassword: isShowErrorPassword,
+        isShowErrorUsername: isShowErrorUsername,
+        handleLogin: handleLogin,
+        handleEnterPassword: handleEnterPassword,
+        handleEnterUsername: handleEnterUsername,
+        handleForgotPassword: handleForgotPassword,
+        handleRegister: handleRegister
+    }
+
     return(
         <>
-            <div className={styles.container}>
-                <Head>
-                    <title>Login - AiGooX</title>
-                    <meta name="description" content="Generated by create next app" />
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-                {
-                    library.isMobile() ? LoginComponent
-                }
-                <Footer/>
-                
-            </div>
+            <HeaderComponent data={{title: "Login"}} />
+            {
+                publics.library.isMobile() 
+                ? 
+                <LayoutMobile> 
+                    <LoginMobileComponent 
+                        screens={{height_:height_, width_:width_}}
+                        variables={variables}/>
+                </LayoutMobile>
+                : 
+                <LayoutDesktop>
+                    <LoginDesktopComponent 
+                        screens={{height_:height_, width_:width_}}
+                        variables={variables}/>
+                </LayoutDesktop>    
+            }
         </>
     )
 }

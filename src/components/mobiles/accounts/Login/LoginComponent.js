@@ -1,5 +1,5 @@
 
-export default function LoginComponents(){
+export default function LoginMobileComponents(props){
     return(
         <>
             {
