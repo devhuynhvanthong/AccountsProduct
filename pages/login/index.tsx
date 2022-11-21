@@ -67,6 +67,7 @@ export default function Login(){
                 }
                 setClickLogin(false)
                 let data = await publics.api.post(publics.url.URL_LOGIN, body)
+                console.log("data: ",data)
                 if(data.status==publics.constant.SUCCESS){
                     publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
                     let data_ = {
@@ -102,6 +103,7 @@ export default function Login(){
     const handleRegister = () => {
         router.push(publics.url.PATH_REGISTER)
     }
+
     const variables = {
         password: password,
         setPassword: setPassword,
