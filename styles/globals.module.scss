@@ -56,7 +56,7 @@ $width: 100vw;
 }
 
 .footer {
-    bottom: 0%;
+    max-height: heightWrapper(35);
     min-height: heightWrapper(30);
     background-color: #747677;
     grid-row-start: 2;

@@ -1,13 +1,16 @@
 import React from "react"
 export default function LayoutMobile({children}){
-
-    
-    console.log("Mobile")
+    const isShow = true
     return(
         <>
-            <main>
-            {children}
-            </main>
+            { isShow ?
+                alert("Phiên bản chưa hỗ trợ mobile...!!!")
+                :
+                <main>
+                    {children}
+                </main>
+            }
+            
         </>
     )
 }

@@ -13,6 +13,9 @@ export default function Publics_(){
     const validation = Validations()
     const color = Colors()
     const cookie = Cookies()
+    const isMobile = () => {
+        return library.getSessionStorageByKey("device")==="mobile"?true:false
+    }
     return(
         {
             api,
@@ -21,7 +24,8 @@ export default function Publics_(){
             library,
             validation,
             color,
-            cookie
+            cookie,
+            isMobile
         }
     )
 }
