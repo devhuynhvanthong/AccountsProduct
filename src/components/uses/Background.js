@@ -62,25 +62,21 @@ export default function Background(){
                         outModes: {
                             default: "bounce",
                         },
-                        random: false,
-                        speed: 2,
+                        random: true,
+                        speed: 0.15,
                         straight: true,
                     },
                     number: {
-                        density: {
-                            enable: true,
-                            area: 800,
-                        },
                         value: 50,
                     },
                     opacity: {
                         value: 0.5,
                     },
                     shape: {
-                        type: "circle",
+                        type: "star",
                     },
                     size: {
-                        value: { min: 1, max: 5 },
+                        value: { min: 1, max:3 },
                     },
                 },
                 detectRetina: true,
