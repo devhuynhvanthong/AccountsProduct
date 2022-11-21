@@ -20,7 +20,6 @@ export default function CallApi(){
         'Content-Type': 'application/json',
         header_
       },
-      // withCredentials: true,
     })
       .then((res) => {
         return res.data;

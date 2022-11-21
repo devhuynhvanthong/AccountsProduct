@@ -8,6 +8,10 @@ $width: 100vw;
     @return ($width - ($width - $value));
 }
 
+@function sizeWH($value){
+    @return calc((heightWrapper($value) + widthWrapper($value/2))/2);
+}
+
 .titileContent{
     font-size: widthWrapper(2);
 }
@@ -40,6 +44,7 @@ $width: 100vw;
     width: $width;
     height: heightWrapper(9);
     margin-bottom: 10px;
+    z-index: 2;
 }
 .head{
     background-color: white;
@@ -63,7 +68,7 @@ $width: 100vw;
     justify-items:center;
     flex-wrap: wrap;
     min-height: heightWrapper(100);
-    z-index: 0;
+    z-index: 1;
 }
 
 .body{
@@ -96,7 +101,25 @@ $width: 100vw;
 .logoFooter{
     width: widthWrapper(10);
 }
+
 .logoHead{ position: absolute;
     height: heightWrapper(3.5);
     left: 20px;
+}
+
+.container{
+    z-index: 0;
+    position: absolute;
+    left: widthWrapper(16.5);
+}
+.menuSider{
+    border-right: 1px solid rgb(221, 221, 221);
+    box-shadow: -1px -1px 10px #8b8b8b,
+    1px 1px 5px #8b8b8b;
+    position: fixed;
+}
+
+.childrenMenuSider{
+    font-size: sizeWH(2);
+    height: $height;
 }
