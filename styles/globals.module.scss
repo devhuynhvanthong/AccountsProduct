@@ -5,7 +5,7 @@ $width: 100vw;
     @return ($height - ($height - $value));
 }
 @function widthWrapper($value){
-    @return ($width - ($width    - $value));
+    @return ($width - ($width - $value));
 }
 
 .titileContent{
@@ -29,21 +29,38 @@ $width: 100vw;
 
 .wrapper{
     position: relative;
-    padding: heightWrapper(5) widthWrapper(5);
     clear:both;
     width: $width;
     vertical-align: middle;
     justify-content: center;
     justify-items: center;
 }
-
+.headGroup{
+    position: relative;
+    width: $width;
+    height: heightWrapper(9);
+    margin-bottom: 10px;
+}
+.head{
+    background-color: white;
+    position: fixed;
+    padding-top: heightWrapper(2);
+    padding-bottom: heightWrapper(2);
+    width: $width;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    box-shadow: -1px -1px 10px #8b8b8b,
+    1px 1px 10px #8b8b8b,
+    inset -1px -1px 10px #fff,
+    inset 1px 1px 10px #fff;
+    height: heightWrapper(5);
+}
 .screens{
     display: flex;
     overflow-y: auto;
     overflow-x: hidden;
     width: $width;
     justify-content: center;
-    justify-items: center;
+    justify-items:center;
     flex-wrap: wrap;
     min-height: heightWrapper(100);
     z-index: 0;
@@ -56,13 +73,17 @@ $width: 100vw;
 }
 
 .footer {
+    border-top: 1px solid #838383;
+    box-shadow: 1px -1px 10px #8b8b8b,
+    0px 0px 30px #8b8b8b,
+    inset 0px 0px 0px #8b8b8b,
+    inset 0px 0px 0px #8b8b8b;
     max-height: heightWrapper(35);
     min-height: heightWrapper(30);
     background-color: #747677;
     grid-row-start: 2;
     grid-row-end: 3;
     display: flex;
-    border-top: 1px solid #eaeaea;
     justify-content: center;
     align-items: center;
     width: $width;
@@ -74,4 +95,8 @@ $width: 100vw;
 
 .logoFooter{
     width: widthWrapper(10);
+}
+.logoHead{ position: absolute;
+    height: heightWrapper(3.5);
+    left: 20px;
 }
