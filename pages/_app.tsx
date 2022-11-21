@@ -4,14 +4,34 @@ import styleGlobals from '../styles/globals.module.scss'
 import FooterComponent from '../src/components/mains/FooterComponent'
 import { ToastContainer } from 'react-toastify'
 import Background from '../src/components/uses/Background';
+import {useState,useEffect} from 'react'
+import LayoutMobile from '../src/components/mains/LayoutMobile';
+import LayoutDesktop from '../src/components/mains/LayoutDesktop';
+import Publics_ from '../utils/Publics';
 export default function App({Component, pageProps} : any){
+    const [isMobile,setMobile] = useState(false)
+    const publics = Publics_()
+    useEffect(()=>{
+        setMobile(publics.library.isMobile())
+        publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")
+    },[])
+
     return (
         <>
             <Background />
             <div className={styleGlobals.screens}>
                 
                 <div className={styleGlobals.body}>
-                    <Component {...pageProps} />
+                    {
+                        isMobile?
+                        <LayoutMobile>
+                            <Component {...pageProps} />
+                        </LayoutMobile>
+                        :
+                        <LayoutDesktop>
+                            <Component {...pageProps} />
+                        </LayoutDesktop>
+                    }
                 </div>
                 <FooterComponent/>
                 <ToastContainer />

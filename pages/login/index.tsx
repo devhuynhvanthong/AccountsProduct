@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect,useState,useMemo } from 'react'
+import { useEffect,useState } from 'react'
 import useWindowDimensions from '../../src/components/uses/WindowDimensions'
 import LoginDesktopComponent from '../../src/components/desktops/accounts/Login/LoginComponent'
 import LoginMobileComponent from '../../src/components/mobiles/accounts/Login/LoginComponent'
@@ -19,23 +19,25 @@ export default function Login(){
     const [isClickLogin,setClickLogin] = useState(true)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
-
+    const [isMobile,setMobile] = useState(true)
     let domain: string | string[] | undefined = undefined
     let {height_,width_} = useWindowDimensions()
+
     useEffect(()=> {
         if(publics.library.checkLogin()){
           router.push('/')
+        }else{
+            setMobile(publics.isMobile())
+            domain = router.query.domain
         }
-        domain = router.query.domain
       },[])
-
-      const tranferPageBeforLogin = async (event_:Event) => {
+    const tranferPageBeforLogin = async (event_:Event) => {
         if(domain != undefined){
             try{
                 const query = await publics.api.post(publics.url.URL_GET_DOMAIN,{
                     code_service: domain
                 },"")
-                if(query.status==publics.constant.SUCCESS){
+                if(query.status===publics.constant.SUCCESS){
                     publics.library.startPageUrl(query.data)
                 }else{
                     router.push("/")
@@ -66,7 +68,7 @@ export default function Login(){
                 setClickLogin(false)
                 let data = await publics.api.post(publics.url.URL_LOGIN, body)
                 if(data.status==publics.constant.SUCCESS){
-                    publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCES)
+                    publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
                     let data_ = {
                         accsessToken : data.data.data.accsess_token,
                         date: publics.library.getDateTime()
@@ -84,12 +86,12 @@ export default function Login(){
     }
 
     const handleEnterPassword = (event_: any) => {
-        setPassword(event_.target.value)
+        setPassword(event_.target.value.trim())
         setShowErrorPassword(false)
     }
 
     const handleEnterUsername = (event_: any) => {
-        setUsername(event_.target.value)
+        setUsername(event_.target.value.trim())
         setShowErrorUsername(false)
     }
 
@@ -121,24 +123,18 @@ export default function Login(){
         handleForgotPassword: handleForgotPassword,
         handleRegister: handleRegister
     }
-
     return(
         <>
             <HeaderComponent data={{title: "Login"}} />
             {
-                publics.library.isMobile() 
-                ? 
-                <LayoutMobile> 
-                    <LoginMobileComponent 
-                        screens={{height_:height_, width_:width_}}
-                        variables={variables}/>
-                </LayoutMobile>
+                isMobile? 
+                <LoginMobileComponent 
+                    screens={{height_:height_, width_:width_}}
+                    variables={variables}/>
                 : 
-                <LayoutDesktop>
-                    <LoginDesktopComponent 
-                        screens={{height_:height_, width_:width_}}
-                        variables={variables}/>
-                </LayoutDesktop>    
+                <LoginDesktopComponent 
+                    screens={{height_:height_, width_:width_}}
+                    variables={variables}/>  
             }
         </>
     )

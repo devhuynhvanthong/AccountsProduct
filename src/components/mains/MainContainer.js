@@ -19,15 +19,7 @@ export default function MainContainer(props){
         <>
         <HeaderComponent data={{title: "My Account"}} />
         {
-          library.isMobile() 
-          ? 
-          <LayoutMobile> 
-            {/* <LoginMobileComponents screens={props.screens}/> */}
-          </LayoutMobile>
-          : 
-          <LayoutDesktop>
-            {/* <LoginDesktopComponents screens={props.screens}/> */}
-          </LayoutDesktop>
+          
         }
         
         </>
