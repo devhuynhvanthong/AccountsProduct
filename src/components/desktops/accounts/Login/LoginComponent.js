@@ -27,14 +27,14 @@ export default function LoginDesktopComponents(props){
                                 </div>
                                 <div className={style.inputGroup}>
                                     <label className={style.label}>Tài khoản</label>
-                                    <input className={style.input} value={variables.username} onChange={(e) => variables.handleEnterUsername(e)} placeholder="Nhập tài khoản của bạn..." required />
+                                    <input className={style.input} onKeyUp={variables.handleEnterLogin} value={variables.username} onChange={(e) => variables.handleEnterUsername(e)} placeholder="Nhập tài khoản của bạn..." required />
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorUsername}>
                                     <p className={style.labelError}>{variables.errorUsername}</p>
                                 </div>
                                 <div className={style.inputGroup}>
                                     <label className={style.label}>Mật khẩu</label>
-                                    <input className={style.input} value={variables.password} onChange={(e) => variables.handleEnterPassword(e)} type='password' placeholder="Nhập mật khẩu của bạn..." required />
+                                    <input className={style.input} onKeyUp={variables.handleEnterLogin} value={variables.password} onChange={(e) => variables.handleEnterPassword(e)} type='password' placeholder="Nhập mật khẩu của bạn..." required />
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorPassword}>
                                     <p className={style.labelError}>{variables.errorPassword}</p>

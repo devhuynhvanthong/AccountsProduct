@@ -63,11 +63,11 @@ export default function Background(){
                             default: "bounce",
                         },
                         random: true,
-                        speed: 0.15,
+                        speed: 0.5,
                         straight: true,
                     },
                     number: {
-                        value: 50,
+                        value: 70,
                     },
                     opacity: {
                         value: 0.5,

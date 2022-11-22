@@ -15,7 +15,6 @@ $width: 100vw;
     transform: translate(-50%, -50%);
     display: flex;
     height: fit-content;
-    width: widthWrapper(30);
     vertical-align: middle;
     justify-items: center;
     text-align: center;
@@ -28,7 +27,7 @@ $width: 100vw;
 }
 
 .formContentChild{
-    padding: widthWrapper(3);
+    margin: widthWrapper(3);
 }
 
 .labelNotificationGroup{
