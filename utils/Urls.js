@@ -11,15 +11,19 @@ export default function Urls(){
     const PATH_REGISTER = "register"
     const PATH_LOGIN = "login"
     const PATH_HOME = "home"
-    const PATH_PERSONAL_INFO = "personal-info"
+    const PATH_PERSONAL_INFO = "info"
     const PATH_LOGIN_HISTORY = "login-history"
     const PATH_PERMISSION_PRIMARY = "permission-primary"
     const PATH_SHARED = "shared"
-    const PATH_PAYMENT_METHODS = "payment-methods"
+    const PATH_PAYMENT = "payment"
     const PATH_PAYMENT_HISTORY = "payment-history"
     const PATH_INTRODUCE = "introduce"
+    const PATH_POLICY = 'policy'
+    const PATH_PACKET = 'packet'
     
     return {
+        PATH_POLICY,
+        PATH_PACKET,
         BASE_URL,
         URL_LOGIN,
         PATH_REGISTER,
@@ -32,7 +36,7 @@ export default function Urls(){
         PATH_LOGIN_HISTORY,
         PATH_PERMISSION_PRIMARY,
         PATH_SHARED,
-        PATH_PAYMENT_METHODS,
+        PATH_PAYMENT,
         PATH_PAYMENT_HISTORY,
         PATH_INTRODUCE,
         URL_REGISTER

@@ -1,13 +1,11 @@
 import styleGlobals from '../styles/globals.module.scss'
 import MainContainer from '../src/components/mains/MainContainer'
 import FooterComponent from '../src/components/mains/FooterComponent'
-import useWindowDimensions from '../src/components/uses/WindowDimensions'
 import { useEffect } from "react";
 import { useRouter } from 'next/router';
 import Publics_ from '../utils/Publics'
-
+import HomeComponent from '../src/components/desktops/Home/HomeComponent'
 export default function Home(){
-    let {height_,width_} = useWindowDimensions()
     const public_ = Publics_()
     const router = useRouter()
     useEffect(()=>{
@@ -17,7 +15,10 @@ export default function Home(){
     },[])
     return (
         <>  
-            <MainContainer screens={{height_:height_,width_:width_}}/>
+            <MainContainer 
+                tab={"home"} title={"Trang chủ"}>
+                <HomeComponent />
+            </MainContainer>
         </>
     )
 }

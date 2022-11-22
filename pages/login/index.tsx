@@ -4,8 +4,6 @@ import useWindowDimensions from '../../src/components/uses/WindowDimensions'
 import LoginDesktopComponent from '../../src/components/desktops/accounts/Login/LoginComponent'
 import LoginMobileComponent from '../../src/components/mobiles/accounts/Login/LoginComponent'
 import HeaderComponent from '../../src/components/mains/HeaderComponent'
-import LayoutMobile from '../../src/components/mains/LayoutMobile'
-import LayoutDesktop from '../../src/components/mains/LayoutDesktop'
 import Publics_ from '../../utils/Publics'
 
 export default function Login(){
@@ -50,37 +48,40 @@ export default function Login(){
           }
     }
 
-    const handleLogin = async (event_: Event) => {
+    const handleLogin = (event_: Event) => {
         if(isClickLogin){
-            if (username.length <= 0) {
-                setShowErrorUsername(true)
-            }
-    
-            if (password.length <= 0) {
-                setShowErrorPassword(true)
-            }
-
-            if (password.length > 0 && username.length > 0) {
+            const username_ = document.getElementsByTagName('input')[0].value
+            const password_ = document.getElementsByTagName('input')[1].value
+            if (password_.toString().length > 0 && username_.toString().length > 0) {
                 let body = {
-                    username: username,
-                    password: password
+                    username: username_,
+                    password: password_
                 }
                 setClickLogin(false)
-                let data = await publics.api.post(publics.url.URL_LOGIN, body)
-                console.log("data: ",data)
-                if(data.status==publics.constant.SUCCESS){
-                    publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
-                    let data_ = {
-                        accsessToken : data.data.data.accsess_token,
-                        date: publics.library.getDateTime()
+                publics.api.post(publics.url.URL_LOGIN, body).then(({ data}: any)=>{
+                    console.log(data)
+                    if(data.status==publics.constant.SUCCESS){
+                        publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
+                        let data_ = {
+                            accsessToken : data.data.data.accsess_token,
+                            date: publics.library.getDateTime()
+                        }
+                        const keys = publics.constant.KEY_ACCESS_TOKEN
+                        publics.cookie.Set(keys,data_)
+                        tranferPageBeforLogin(event_)
+                    }else{
+                        setPassword("")
+                        publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
                     }
-                    const keys = publics.constant.KEY_ACCESS_TOKEN
-                    publics.cookie.Set(keys,data_)
-                    tranferPageBeforLogin(event_)
-                }else{
-                    setClickLogin(true)
-                    setPassword("")
-                    publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
+                }).finally(() => setClickLogin(true))
+                
+            }else{
+                if (username.toString().length <= 0) {
+                    setShowErrorUsername(true)
+                }
+        
+                if (password.toString().length <= 0) {
+                    setShowErrorPassword(true)
                 }
             }
         }        
@@ -104,6 +105,11 @@ export default function Login(){
         router.push(publics.url.PATH_REGISTER)
     }
 
+    const handleEnterLogin = (event: any) => {
+        if(event.key === 'Enter'){
+            handleLogin(event)
+        }
+    }
     const variables = {
         password: password,
         setPassword: setPassword,
@@ -123,7 +129,8 @@ export default function Login(){
         handleEnterPassword: handleEnterPassword,
         handleEnterUsername: handleEnterUsername,
         handleForgotPassword: handleForgotPassword,
-        handleRegister: handleRegister
+        handleRegister: handleRegister,
+        handleEnterLogin: handleEnterLogin
     }
     return(
         <>
@@ -135,8 +142,10 @@ export default function Login(){
                     variables={variables}/>
                 : 
                 <LoginDesktopComponent 
-                    screens={{height_:height_, width_:width_}}
-                    variables={variables}/>  
+                        screens={{height_:height_, width_:width_}}
+                        variables={variables}/> 
+                
+                
             }
         </>
     )

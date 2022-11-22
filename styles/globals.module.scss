@@ -7,9 +7,11 @@ $width: 100vw;
 @function widthWrapper($value){
     @return ($width - ($width - $value));
 }
-
+ @function ratioScreen(){
+    @return calc(100vmax/100vmin);
+ }
 @function sizeWH($value){
-    @return calc((heightWrapper($value) + widthWrapper($value/2))/2);
+    @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
 }
 
 .titileContent{
@@ -79,8 +81,8 @@ $width: 100vw;
 
 .footer {
     border-top: 1px solid #838383;
-    box-shadow: 1px -1px 10px #8b8b8b,
-    0px 0px 30px #8b8b8b,
+    box-shadow: 1px -1px 5px #8b8b8b,
+    0px 0px 5px #8b8b8b,
     inset 0px 0px 0px #8b8b8b,
     inset 0px 0px 0px #8b8b8b;
     max-height: heightWrapper(35);
@@ -111,6 +113,8 @@ $width: 100vw;
     z-index: 0;
     position: absolute;
     left: widthWrapper(16.5);
+    width: max-content;
+    height: max-content;
 }
 .menuSider{
     border-right: 1px solid rgb(221, 221, 221);
@@ -122,4 +126,17 @@ $width: 100vw;
 .childrenMenuSider{
     font-size: sizeWH(2);
     height: $height;
+}
+
+.breadcrumb{
+    font-size: sizeWH(2);
+}
+
+.wrapper{
+    clear:both;
+    width: 100%;
+    vertical-align: middle;
+    justify-content: center;
+    justify-items: center;
+    font-size: sizeWH(1.95);
 }
