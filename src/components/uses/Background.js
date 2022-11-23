@@ -16,7 +16,7 @@ export default function Background(){
             options={{
                 background: {
                     color: {
-                        value: "#F7F7F7",
+                        value: "#ffffff",
                     },
                 },
                 fpsLimit: 120,
@@ -44,10 +44,10 @@ export default function Background(){
                 },
                 particles: {
                     color: {
-                        value: "#C7BCA1",
+                        value: "#D61C4E",
                     },
                     links: {
-                        color: "#C7BCA1",
+                        color: "#B1AFFF",
                         distance: 200,
                         enable: true,
                         opacity: 0.5,

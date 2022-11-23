@@ -10,7 +10,7 @@ export default function LoginDesktopComponents(props){
     const variables= props.variables
     return(
         <>
-            <div className={styleGlobals.wrapper}>
+            <div className={style.wrapper}>
                 <div className={style.formContent}>
                     <div className={style.formContentChild}>
                         <Spin 
