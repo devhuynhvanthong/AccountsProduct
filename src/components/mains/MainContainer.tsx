@@ -17,6 +17,7 @@ import { HomeOutlined,
 import { Layout, Menu, Col, Row, Breadcrumb } from 'antd';
 import Publics_ from "../../../utils/Publics";
 import Home from "../../../pages";
+import FooterComponent from "./FooterComponent";
 
 type ParamMenu = {
   tab: "home" | "info" | "policy" | "payment" | "packet",
@@ -114,37 +115,44 @@ const MainContainer: React.FC & ParamMenu = ({children,tab, title}) => {
     return(
         <>
           <HeaderComponent data={{title: title + "My Account"}} />
-          
-          <div className={styleGlobal.wrapper}>
-            <HeadComponent />
-            <Container>
-              <Row>
-                <Col>
-                  <Sider width={'15vw'}
-                    className={styleGlobal.menuSider}>
-                    <Menu
-                      onSelect={(key_)=>onSelectMenuListener(key_.key)}
-                      mode="inline"
-                      defaultSelectedKeys={[tab]}
-                      items={items2}
-                      className={styleGlobal.childrenMenuSider}
-                    />
-                  </Sider>
-                </Col>
-                <Col>
-                <div className={styleGlobal.container}>
-                  <Breadcrumb className={styleGlobal.breadcrumb}>
-                    <Breadcrumb.Item><DoubleRightOutlined className={styleGlobal.breadcrumb} /> {breadcrumb}</Breadcrumb.Item>
-                  </Breadcrumb>
-                  <hr style={{width: '10vw', float:"left"}}/>
-                  <div className={styleGlobal.wrapper}>
-                    {children}
-                  </div>
+          {
+            typeof window!= undefined?
+              publics.library.checkLogin()?
+                <div>
+                  <HeadComponent />
+                  <Container>
+                    <Row>
+                      <Col>
+                        <Sider width={'15vw'}
+                          className={styleGlobal.menuSider}>
+                          <Menu
+                            onSelect={(key_)=>onSelectMenuListener(key_.key)}
+                            mode="inline"
+                            defaultSelectedKeys={[tab]}
+                            items={items2}
+                            className={styleGlobal.childrenMenuSider}
+                          />
+                        </Sider>
+                      </Col>
+                      <Col>
+                      <div className={styleGlobal.container}>
+                        <Breadcrumb className={styleGlobal.breadcrumb}>
+                          <Breadcrumb.Item><DoubleRightOutlined className={styleGlobal.breadcrumb} /> {breadcrumb}</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <hr style={{width: '15vw', float:"left"}}/>
+                        <div className={styleGlobal.wrapper}>
+                          {children}
+                          <FooterComponent/>
+                        </div>
+                      </div>
+                      </Col>
+                    </Row>
+                  </Container>
                 </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+              :""
+            : ""
+          }
+          
         </>
     )
 }

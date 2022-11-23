@@ -9,10 +9,10 @@ $width: 100vw;
 }
 
 .formContent{
-    position: absolute;
+    width: widthWrapper(30);
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(0%,-50%);
+    position: absolute;
     display: flex;
     height: fit-content;
     vertical-align: middle;
@@ -42,13 +42,16 @@ $width: 100vw;
 }
 
 .wrapper{
-    padding: heightWrapper(5) widthWrapper(5);
+    position: relative;
+    display: flex;
+    grid-template-rows: 1fr auto;
     clear:both;
     width: $width;
-    display: flex;
+    height: $height;
     vertical-align: middle;
     justify-content: center;
     justify-items: center;
+    font-size: sizeWH(1.95);
 }
 
 .input:focus + label,.input:valid + label{

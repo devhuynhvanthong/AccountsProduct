@@ -35,7 +35,6 @@ export default function App({Component, pageProps} : any){
                         }
                     
                 </div>
-                <FooterComponent/>
                 <ToastContainer />
             </div>
         </>

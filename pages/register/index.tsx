@@ -4,12 +4,10 @@ import HeaderComponent from "../../src/components/mains/HeaderComponent";
 import Publics_ from "../../utils/Publics";
 import RegisterDesktopComponent from '../../src/components/desktops/accounts/Register/RegisterComponent'
 import RegisterMobileComponent from '../../src/components/mobiles/accounts/Register/RegisterComponent'
-import useWindowDimensions from "../../src/components/uses/WindowDimensions";
 export default function Register(){
     
     const [isMobile,setMobile] = useState(true)
     const publics = Publics_()
-    let {height_,width_} = useWindowDimensions()
     const router = useRouter()
     const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
     const [errorUsername,setErrorUsername] = useState(publics.validation.FIELD_REQUIRED)
@@ -61,7 +59,6 @@ export default function Register(){
                     setShowErrorPassword(true)
                 }
                 else{
-                    console.log("so sánh: ",password!=againPassword)
                     if(password!=againPassword){
                         setShowErrorAgainPassword(true)
                     }
@@ -124,11 +121,9 @@ export default function Register(){
                 isMobile 
                 ? 
                 <RegisterMobileComponent
-                    screens={{height_:height_, width_:width_}}
                     variables={variables}/>
                 : 
-                <RegisterDesktopComponent 
-                    screens={{height_:height_, width_:width_}}
+                <RegisterDesktopComponent
                     variables={variables}/>  
             }
         </>

@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { useEffect,useState } from 'react'
-import useWindowDimensions from '../../src/components/uses/WindowDimensions'
 import LoginDesktopComponent from '../../src/components/desktops/accounts/Login/LoginComponent'
 import LoginMobileComponent from '../../src/components/mobiles/accounts/Login/LoginComponent'
 import HeaderComponent from '../../src/components/mains/HeaderComponent'
@@ -19,7 +18,6 @@ export default function Login(){
     const [password,setPassword] = useState("")
     const [isMobile,setMobile] = useState(true)
     let domain: string | string[] | undefined = undefined
-    let {height_,width_} = useWindowDimensions()
 
     useEffect(()=> {
         if(publics.library.checkLogin()){
@@ -58,10 +56,14 @@ export default function Login(){
                     password: password_
                 }
                 setClickLogin(false)
-                publics.api.post(publics.url.URL_LOGIN, body).then(({ data}: any)=>{
+                publics.api.post(publics.url.URL_LOGIN, body).then(data=>{
                     console.log(data)
                     if(data.status==publics.constant.SUCCESS){
-                        publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
+                        if(data.category === publics.constant.VALIDATE){
+                            publics.library.createNotification(publics.constant.ERROR,data.data)
+                        }else{
+                            publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
+                        }
                         let data_ = {
                             accsessToken : data.data.data.accsess_token,
                             date: publics.library.getDateTime()
@@ -71,7 +73,12 @@ export default function Login(){
                         tranferPageBeforLogin(event_)
                     }else{
                         setPassword("")
-                        publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
+                        
+                        if(data.category === publics.constant.VALIDATE){
+                            publics.library.createNotification(publics.constant.ERROR,data.data)
+                        }else{
+                            publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
+                        }
                     }
                 }).finally(() => setClickLogin(true))
                 
@@ -138,12 +145,10 @@ export default function Login(){
             {
                 isMobile? 
                 <LoginMobileComponent 
-                    screens={{height_:height_, width_:width_}}
                     variables={variables}/>
                 : 
                 <LoginDesktopComponent 
-                        screens={{height_:height_, width_:width_}}
-                        variables={variables}/> 
+                    variables={variables}/> 
                 
                 
             }
