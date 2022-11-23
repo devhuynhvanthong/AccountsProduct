@@ -1,0 +1,70 @@
+$height: 100vh;
+$width: 100vw;
+
+@function heightWrapper($value){
+    @return ($height - ($height - $value));
+}
+@function widthWrapper($value){
+    @return ($width - ($width - $value));
+}
+ @function ratioScreen(){
+    @return calc(100vmax/100vmin);
+ }
+@function sizeWH($value){
+    @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
+}
+
+.avatarSmall{
+    width: sizeWH(5);
+    border-radius: 100%;
+    outline: 1px;
+    border: 1px solid #000;
+}
+
+.elementV1{
+    justify-items: center;
+}
+
+.elementV2{
+    width: 100%;
+    text-align: center;
+}
+
+.ellipseV3{
+    cursor: pointer;
+    text-align: right;
+}
+
+.contentSpace{
+    width: initial;
+    margin-top: heightWrapper(5);
+    position: relative;
+}
+
+.borderBalances{
+    
+    color: white;
+    padding-right: widthWrapper(3);
+    padding-left: widthWrapper(3);
+    padding-top: heightWrapper(3);
+    padding-bottom: heightWrapper(3);
+    background-color: #5f6368;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.labelBalance{
+    font-size: sizeWH(3.5);
+    font-weight: 495;
+    text-align: center;
+}
+
+.contentBalance{
+    font-size: sizeWH(2.5);
+    text-align: center;
+}
+
+.iconBalance{
+    font-size: sizeWH(3);
+    color: rgb(255, 255, 255);
+}

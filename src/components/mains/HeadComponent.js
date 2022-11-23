@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 import stylesGlobal from '../../../styles/globals.module.scss'
 import Publics_ from '../../../utils/Publics'
 import style from '../../../styles/head.module.scss'
-import {Dropdown} from 'antd'
+import {Dropdown,Modal,ConfigProvider} from 'antd'
 import {LogoutOutlined} from '@ant-design/icons';
+import { useRouter } from 'next/router'
 export default function HeadComponent(){
     const publics = Publics_()
     const [dataInfoBasic,setDataInfoBasic] = useState({})
-
+    const router = useRouter()
     useEffect(() => {
         (async () => {
             publics.api.post(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
@@ -20,8 +21,23 @@ export default function HeadComponent(){
         })()
     }, [])
 
+    const confirm = () => {
+        Modal.confirm({
+          title: 'Cảnh báo',
+          content: 'Bạn chắt chắn muốn đăng xuất?',
+          onOk:(()=>{
+            publics.cookie.Remove(publics.constant.KEY_ACCESS_TOKEN)
+            router.push(publics.url.PATH_LOGIN)
+          })
+        });
+      };
+
     const handleMenuClick = (e) => {
-        console.log('click', e);
+        switch(e.key){
+            case "logout":
+                confirm()
+                break;
+        }
       };
 
     const items = [
@@ -38,16 +54,19 @@ export default function HeadComponent(){
     };
     return(
         <>
-            <div className={stylesGlobal.headGroup}>
-                <div className={stylesGlobal.head}>
-                    <img src='images/logo_horizontal.png' className={stylesGlobal.logoHead} />
-                    <div className={style.moduleRight}>
-                    <Dropdown menu={menuProps}>
-                        <img className={style.avatar} src={dataInfoBasic.avatar} />
-                    </Dropdown>
+            <ConfigProvider >
+                <div className={stylesGlobal.headGroup}>
+                    <div className={stylesGlobal.head}>
+                        <img src='images/logo_horizontal.png' className={stylesGlobal.logoHead} />
+                        <div className={style.moduleRight}>
+                        <Dropdown menu={menuProps}>
+                            <img className={style.avatar} src={dataInfoBasic.avatar} />
+                        </Dropdown>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ConfigProvider>
+            
         </>
     )
 }

@@ -16,7 +16,7 @@ export default function Background(){
             options={{
                 background: {
                     color: {
-                        value: "#ffffff",
+                        value: "#FFFFFE",
                     },
                 },
                 fpsLimit: 120,
@@ -63,7 +63,7 @@ export default function Background(){
                             default: "bounce",
                         },
                         random: true,
-                        speed: 0.5,
+                        speed: 0.7,
                         straight: true,
                     },
                     number: {
