@@ -22,15 +22,18 @@ $width: 100vw;
 }
 
 .elementV1{
+    font-family: "sans-serif";
     justify-items: center;
 }
 
 .elementV2{
+    font-family: "sans-serif";
     width: 100%;
     text-align: center;
 }
 
 .ellipseV3{
+    font-family: "sans-serif";
     cursor: pointer;
     text-align: right;
 }
@@ -41,4 +44,12 @@ $width: 100vw;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.description{
+    font-family: "sans-serif";
+}
+
+.title{
+    font-family: "sans-serif";
 }

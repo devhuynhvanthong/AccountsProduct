@@ -27,9 +27,9 @@ export default function InfoComponent(props){
                     direction="vertical"
                     size="middle">
                     <Card
-                        title="Thông tin cơ bản" 
+                        title={<p className={style.title}>Thông tin cơ bản</p>} 
                         size='large'>
-                        <p>Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của AiGooX</p>
+                        <p className={style.description}>Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của AiGooX</p>
                         <div>
                             <Row>
                                 <Col className={style.elementV1} span={8}>
@@ -81,7 +81,7 @@ export default function InfoComponent(props){
                         </div>
                     </Card>
                     <Card 
-                        title="Thông tin liên hệ" 
+                        title={<p className={style.title}>Thông tin liên hệ</p>}
                         direction="vertical"
                         size="middle">
                         <div>
