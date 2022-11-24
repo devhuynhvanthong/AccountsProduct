@@ -57,14 +57,31 @@ $width: 100vw;
     font-size: sizeWH(3.5);
     font-weight: 495;
     text-align: center;
+    font-family: "sans-serif";
 }
 
 .contentBalance{
     font-size: sizeWH(2.5);
     text-align: center;
+    font-family: "sans-serif";
 }
 
 .iconBalance{
     font-size: sizeWH(3);
     color: rgb(255, 255, 255);
 }
+
+.borderTitleModule{
+    width: 100%;
+    text-align: left;
+    margin-bottom: heightWrapper(4);
+}
+.titleModule{
+    font-family: "sans-serif";
+    font-size: sizeWH(3);
+}
+
+.divider{
+    background-color: white;
+}
+

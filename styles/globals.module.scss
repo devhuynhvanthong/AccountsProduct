@@ -15,14 +15,17 @@ $width: 100vw;
 }
 
 .titileContent{
+    font-family: "sans-serif";
     font-size: widthWrapper(2);
 }
 
 .descriptionContent{
+    font-family: "sans-serif";
     font-size: widthWrapper(1.2);
 }
 
 .buttonText{
+    font-family: "sans-serif";
     font-size: widthWrapper(1.25);
     margin-top: heightWrapper(2);
     color: #2178eb;
@@ -73,6 +76,7 @@ $width: 100vw;
 }
 
 .body{
+    
     overflow-y: auto;
     display: grid;
     grid-template-rows: 1fr auto;
@@ -131,4 +135,24 @@ $width: 100vw;
 
 .breadcrumb{
     font-size: sizeWH(2);
+    font-family: "sans-serif";
+}
+
+.title{
+    font-size: sizeWH(2);
+    font-family: "sans-serif";
+}
+
+.titleButton{
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    font-size: sizeWH(2);
+    font-family: "sans-serif";
+    border: none;
+    background-color: transparent;
+}
+
+.titleChildren{
+    font-size: sizeWH(1.5);
 }

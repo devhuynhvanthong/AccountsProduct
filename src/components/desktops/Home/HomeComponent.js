@@ -1,6 +1,7 @@
 import style from './style.module.scss'
-import {Row, Col} from 'antd'
+import {Row, Col,Divider} from 'antd'
 import {EuroCircleFilled,
+    MenuUnfoldOutlined,
     CheckCircleFilled,
     WarningFilled,
     ExclamationCircleFilled} from '@ant-design/icons';
@@ -9,6 +10,12 @@ export default function Home(){
         <>
             <div className={style.contentSpace}>
                 <div className={style.borderBalances}>
+                    <div className={style.borderTitleModule}>
+                        <span className={style.titleModule}>
+                            <MenuUnfoldOutlined /> Thông tin số dư nạp vào
+                        </span>
+                        <Divider className={style.divider}/>
+                    </div>
                     <Row gutter={24}>
                         <Col span={6}>
                             <div>
@@ -47,6 +54,10 @@ export default function Home(){
                         </Col>
                         
                     </Row>
+
+                    <div>
+
+                    </div>
                 </div>
             </div>
         </>
