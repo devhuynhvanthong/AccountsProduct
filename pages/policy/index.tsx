@@ -4,7 +4,7 @@ export default function Info(){
     return (
         <>
         <MainContainer tab={"policy"} title={"Bảo mật"}>
-            <span>Bảo mật</span>
+            <span>Tính năng đang phát triển</span>
         </MainContainer>
         </>
     )

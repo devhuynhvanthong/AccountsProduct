@@ -48,8 +48,15 @@ $width: 100vw;
 
 .description{
     font-family: "sans-serif";
+    font-weight: normal;
+    font-style: italic;
 }
 
 .title{
     font-family: "sans-serif";
+}
+
+.card{
+    box-shadow: -1px -1px 5px #8b8b8b,
+    1px 1px 5px #8b8b8b;
 }
