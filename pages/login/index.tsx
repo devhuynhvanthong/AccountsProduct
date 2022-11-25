@@ -69,6 +69,7 @@ export default function Login(){
                             date: publics.library.getDateTime()
                         }
                         const keys = publics.constant.KEY_ACCESS_TOKEN
+                        console.log("Data",keys)
                         publics.cookie.Set(keys,data_)
                         tranferPageBeforLogin(event_)
                     }else{

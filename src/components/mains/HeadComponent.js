@@ -57,7 +57,7 @@ export default function HeadComponent(){
             <ConfigProvider >
                 <div className={stylesGlobal.headGroup}>
                     <div className={stylesGlobal.head}>
-                        <img src='images/logo_horizontal.png' className={stylesGlobal.logoHead} />
+                        <img src='/images/logo_horizontal.png' className={stylesGlobal.logoHead} />
                         <div className={style.moduleRight}>
                         <Dropdown menu={menuProps}>
                             <img className={style.avatar} src={dataInfoBasic.avatar} />

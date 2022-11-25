@@ -21,9 +21,9 @@ import Publics_ from "../../../utils/Publics";
 import FooterComponent from "./FooterComponent";
 
 type ParamMenu = {
-  tab: "home" | "info" | "policy" | "payment" | "packet",
-  title ?: String,
-  query ?: String
+  children: React.ReactNode,
+  tab: "home" | "info" | "policy" | "payment" | "packet" |"payment/deposit" |"payment/history-payment"|"payment/method-payment"|"payment/withdraw",
+  title ?: String
 }
 const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
     const publics = Publics_()
@@ -46,7 +46,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
             break
           case "payment":
             let br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Phương thức thanh toán</Breadcrumb.Item></>
-            switch(router.query.tab){
+            switch(tab.split('/')[1]){
               case "withdraw":
                 br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Rút tiền</Breadcrumb.Item></>
                 break
@@ -120,7 +120,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
       
     ]
 
-    const onSelectMenuListener = (keys) =>{
+    const onSelectMenuListener = (keys: any) =>{
       switch(keys){
         case "home":
           router.push("/")
@@ -138,16 +138,16 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
           router.push(publics.url.PATH_PACKET)
           break
         case "method-payment":
-          router.push(publics.url.PATH_PAYMENT + "?tab=" + keys)
+          router.push(publics.url.PATH_METHOD_PAYMENT)
           break
         case "withdraw":
-          router.push(publics.url.PATH_PAYMENT + "?tab=" + keys)
+          router.push(publics.url.PATH_WITHDRAW)
           break
         case "deposit":
-          router.push(publics.url.PATH_PAYMENT + "?tab=" + keys)
+          router.push(publics.url.PATH_DEPOSIT)
           break
         case "history-payment":
-          router.push(publics.url.PATH_PAYMENT + "?tab=" + keys)
+          router.push(publics.url.PATH_HISTORY_PAYMENT)
           break
       }
     }
@@ -171,10 +171,10 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
                         <Sider width={'15vw'}
                           className={styleGlobal.menuSider}>
                           <Menu
-                            forceSubMenuRender={true}
                             onSelect={(key_)=>onSelectMenuListener(key_.key)}
                             mode="inline"
-                            defaultSelectedKeys={tab}
+                            defaultOpenKeys={[tab.split('/')[0]]}
+                            defaultSelectedKeys={[tab.search("/")==-1?tab:tab.split('/')[1]]}
                             items={items2}
                             className={styleGlobal.childrenMenuSider}
                           />
@@ -183,12 +183,14 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
                       <Col>
                       <div className={styleGlobal.container}>
                         <Breadcrumb className={styleGlobal.breadcrumb}>
-                          <DoubleRightOutlined className={styleGlobal.breadcrumb} /> 
+                          <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} /> 
                           {breadcrumb}
                         </Breadcrumb>
                         <hr style={{width: '15vw', float:"left"}}/>
                         <div className={styleGlobal.wrapper}>
-                          {children}
+                          <div className={styleGlobal.body}>
+                            {children}
+                          </div>
                           <FooterComponent/>
                         </div>
                       </div>

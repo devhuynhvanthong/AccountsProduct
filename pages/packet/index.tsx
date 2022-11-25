@@ -4,7 +4,7 @@ export default function Info(){
     return (
         <>
         <MainContainer tab={"packet"} title={"Các gói dịch vụ"}>
-            <span>Các gói dịch vụ</span>
+            <span>Tính năng đang phát triển</span>
         </MainContainer>
         </>
     )

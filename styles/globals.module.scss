@@ -47,20 +47,16 @@ $width: 100vw;
     position: relative;
     width: $width;
     height: heightWrapper(9);
-    margin-bottom: 10px;
     z-index: 2;
 }
 .head{
-    background-color: white;
+    background-color:#183b63;
     position: fixed;
     padding-top: heightWrapper(2);
     padding-bottom: heightWrapper(2);
     width: $width;
-    border-bottom: 1px solid rgb(221, 221, 221);
-    box-shadow: -1px -1px 10px #8b8b8b,
-    1px 1px 10px #8b8b8b,
-    inset -1px -1px 10px #fff,
-    inset 1px 1px 10px #fff;
+    border-bottom: 1px solid rgb(179, 178, 178);
+    box-shadow: 0px 0px 10px #8b8b8b;
     height: heightWrapper(5);
 }
 .screens{
@@ -76,10 +72,6 @@ $width: 100vw;
 }
 
 .body{
-    
-    overflow-y: auto;
-    display: grid;
-    grid-template-rows: 1fr auto;
     min-height: heightWrapper(100);
 }
 
@@ -93,8 +85,6 @@ $width: 100vw;
     max-height: heightWrapper(20);
     min-height: heightWrapper(20);
     background-color: rgb(236, 235, 235);
-    grid-row-start: 2;
-    grid-row-end: 3;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,8 +124,10 @@ $width: 100vw;
 }
 
 .breadcrumb{
+    color: black;
     font-size: sizeWH(2);
     font-family: "sans-serif";
+    margin-top: 10px;
 }
 
 .title{

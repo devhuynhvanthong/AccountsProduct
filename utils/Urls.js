@@ -8,20 +8,26 @@ export default function Urls(){
     const URL_GET_PERSONAL_INFO = API + 'get_personal_info'
     const URL_REGISTER =  API + "register"
 
-    const PATH_REGISTER = "register"
-    const PATH_LOGIN = "login"
-    const PATH_HOME = "home"
-    const PATH_PERSONAL_INFO = "info"
-    const PATH_LOGIN_HISTORY = "login-history"
-    const PATH_PERMISSION_PRIMARY = "permission-primary"
-    const PATH_SHARED = "shared"
-    const PATH_PAYMENT = "payment"
-    const PATH_PAYMENT_HISTORY = "payment-history"
-    const PATH_INTRODUCE = "introduce"
-    const PATH_POLICY = 'policy'
-    const PATH_PACKET = 'packet'
-    
+    const PATH_REGISTER = "/register"
+    const PATH_LOGIN = "/login"
+    const PATH_HOME = "/home"
+    const PATH_PERSONAL_INFO = "/info"
+    const PATH_LOGIN_HISTORY = "/login-history"
+    const PATH_PERMISSION_PRIMARY = "/permission-primary"
+    const PATH_SHARED = "/shared"
+    const PATH_PAYMENT = "/payment"
+    const PATH_INTRODUCE = "/introduce"
+    const PATH_POLICY = '/policy'
+    const PATH_PACKET = '/packet'
+    const PATH_METHOD_PAYMENT = PATH_PAYMENT + '/method-payment'
+    const PATH_WITHDRAW = PATH_PAYMENT + '/withdraw'
+    const PATH_DEPOSIT = PATH_PAYMENT + '/deposit'
+    const PATH_HISTORY_PAYMENT = PATH_PAYMENT + '/history-payment'
     return {
+        PATH_HISTORY_PAYMENT,
+        PATH_DEPOSIT,
+        PATH_WITHDRAW,
+        PATH_METHOD_PAYMENT,
         PATH_POLICY,
         PATH_PACKET,
         BASE_URL,
@@ -37,7 +43,6 @@ export default function Urls(){
         PATH_PERMISSION_PRIMARY,
         PATH_SHARED,
         PATH_PAYMENT,
-        PATH_PAYMENT_HISTORY,
         PATH_INTRODUCE,
         URL_REGISTER
         
