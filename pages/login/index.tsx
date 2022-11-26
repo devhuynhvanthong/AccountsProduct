@@ -6,7 +6,6 @@ import HeaderComponent from '../../src/components/mains/HeaderComponent'
 import Publics_ from '../../utils/Publics'
 
 export default function Login(){
-
     const publics = Publics_()
     const router = useRouter()
     const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
@@ -57,7 +56,7 @@ export default function Login(){
                 }
                 setClickLogin(false)
                 publics.api.post(publics.url.URL_LOGIN, body).then(data=>{
-                    console.log(data)
+                    
                     if(data.status==publics.constant.SUCCESS){
                         if(data.category === publics.constant.VALIDATE){
                             publics.library.createNotification(publics.constant.ERROR,data.data)
@@ -69,7 +68,6 @@ export default function Login(){
                             date: publics.library.getDateTime()
                         }
                         const keys = publics.constant.KEY_ACCESS_TOKEN
-                        console.log("Data",keys)
                         publics.cookie.Set(keys,data_)
                         tranferPageBeforLogin(event_)
                     }else{
@@ -81,7 +79,11 @@ export default function Login(){
                             publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
                         }
                     }
-                }).finally(() => setClickLogin(true))
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+                .finally(() => setClickLogin(true))
                 
             }else{
                 if (username.toString().length <= 0) {

@@ -18,7 +18,6 @@ export default function App({Component, pageProps} : any){
         publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")
         setClient(true)
     },[])
-    // const Layout = Component.Layout || MainContainer
     return (
         <>
             {

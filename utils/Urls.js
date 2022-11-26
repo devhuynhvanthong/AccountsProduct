@@ -1,7 +1,7 @@
 export default function Urls(){
-    const BASE_URL = "https://devaccounts.aigoox.com"
+    const BASE_URL = "http://api-dev-accounts.aigoox.com/"
     const BASE_URL_RESOURCES = "https://resources.aigoox.com/";
-    const API = BASE_URL + "/backend/api/"
+    const API = BASE_URL + "api/"
 
     const URL_LOGIN = API + "login"
     const URL_GET_DOMAIN = API + "get_domain"
