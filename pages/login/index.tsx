@@ -45,6 +45,9 @@ export default function Login(){
           }
     }
 
+    publics.api.get("https://api-dev-accounts.aigoox.com/api/test").then(data=>{
+        console.log(data)
+    })
     const handleLogin = (event_: Event) => {
         if(isClickLogin){
             const username_ = document.getElementsByTagName('input')[0].value

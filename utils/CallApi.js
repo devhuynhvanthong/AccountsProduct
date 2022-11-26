@@ -17,13 +17,7 @@ export default function CallApi(){
       url: `${url}`,
       data: JSON.stringify(body),
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Max-Age': '1800',
-        'Access-Control-Allow-Headers': 'content-type',
-        'Access-Control-Allow-Methods': 'PUT, POST, GET, DELETE, PATCH, OPTIONS',
-        header_
+        'Content-Type': 'application/json'
       },
     })
       .then((res) => {
@@ -84,9 +78,11 @@ export default function CallApi(){
     if (cookie.Get(constants.KEY_ACCESS_TOKEN,false)!=null) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,false)}`;
     }
+    
+    let url = endpoint
     return axios({
       method: 'GET',
-      url: `${API_URL}/${endpoint}`,
+      url: `${url}`,
       headers: {
         'Content-Type': 'application/json',
       },
