@@ -34,7 +34,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
       if(!publics.library.checkLogin()){
         router.push(publics.url.PATH_LOGIN)
       }else{
-        switch(tab){
+        switch(tab.split('/')[0]){
           case "home":
             setBreadcrumb(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
             break
