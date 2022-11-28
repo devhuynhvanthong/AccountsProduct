@@ -184,7 +184,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
                       <div className={styleGlobal.container}>
                         <Breadcrumb className={styleGlobal.breadcrumb}>
                           <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} /> 
-                          {breadcrumb}
+                          {breadcrumb} 
                         </Breadcrumb>
                         <hr style={{width: '15vw', float:"left"}}/>
                         <div className={styleGlobal.wrapper}>
