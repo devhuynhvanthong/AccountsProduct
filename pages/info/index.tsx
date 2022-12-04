@@ -1,25 +1,22 @@
 
-import InfoComponent from "../../src/components/desktops/Info/InfoComponent";
+import InfoDesktopComponent from "../../src/components/desktops/Info/InfoComponent";
 import { useEffect, useState } from "react";
 import Publics_ from "../../utils/Publics";
 import { useRouter } from "next/router";
-export default function Info(){
-
-    const [isMobile,setMobile] = useState(true)
+export default function Info(props: any){
+    const params = props.params
+    params.setTitle("Thông tin cá nhân")
     const publics = Publics_()
     const router = useRouter()
-    useEffect(()=> {
-        setMobile(publics.isMobile())
-      },[])
     const variables = {
     }
     return (
         <>
             {
-                isMobile? 
+                params.isMobile? 
                 ""
                 : 
-                <InfoComponent variables={variables} />
+                <InfoDesktopComponent variables={variables} />
             }
         
         </>
