@@ -5,17 +5,20 @@ import { useEffect } from "react";
 import { useRouter } from 'next/router';
 import Publics_ from '../utils/Publics'
 import HomeComponent from '../src/components/desktops/Home/HomeComponent'
-
-const Home = (props: any) => {
-    props.params.setTitle("Trang chủ")
+export default function Home(){
     const public_ = Publics_()
     const router = useRouter()
-    
-    
+    useEffect(()=>{
+        if(!public_.library.checkLogin()){
+            router.push(public_.url.PATH_LOGIN)
+        }
+    },[])
     return (
         <>  
-            <HomeComponent params={props.params}/>
+            <MainContainer 
+                tab={"home"} title={"Trang chủ"}>
+                <HomeComponent />
+            </MainContainer>
         </>
     )
 }
-export default Home

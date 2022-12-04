@@ -4,10 +4,8 @@ import LoginDesktopComponent from '../../src/components/desktops/accounts/Login/
 import LoginMobileComponent from '../../src/components/mobiles/accounts/Login/LoginComponent'
 import HeaderComponent from '../../src/components/mains/HeaderComponent'
 import Publics_ from '../../utils/Publics'
-import DefaultLayout from '../../src/components/mains/DefaultLayoutComponent'
 
-export default function Login(props: any){
-    props.params.setTitle("Đăng nhập")
+export default function Login(){
     const publics = Publics_()
     const router = useRouter()
     const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
@@ -153,10 +151,10 @@ export default function Login(props: any){
                     variables={variables}/>
                 : 
                 <LoginDesktopComponent 
-                    variables={variables}/>
+                    variables={variables}/> 
+                
+                
             }
         </>
     )
 }
-
-Login.Layout = DefaultLayout

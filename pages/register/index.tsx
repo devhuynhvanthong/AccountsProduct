@@ -4,9 +4,8 @@ import HeaderComponent from "../../src/components/mains/HeaderComponent";
 import Publics_ from "../../utils/Publics";
 import RegisterDesktopComponent from '../../src/components/desktops/accounts/Register/RegisterComponent'
 import RegisterMobileComponent from '../../src/components/mobiles/accounts/Register/RegisterComponent'
-import DefaultLayout from '../../src/components/mains/DefaultLayoutComponent';
-export default function Register(props: any){
-    props.params.setTitle("Đăng ký")
+export default function Register(){
+    
     const [isMobile,setMobile] = useState(true)
     const publics = Publics_()
     const router = useRouter()
@@ -130,5 +129,3 @@ export default function Register(props: any){
         </>
     )
 }
-
-Register.Layout = DefaultLayout

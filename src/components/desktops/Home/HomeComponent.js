@@ -5,9 +5,7 @@ import {EuroCircleFilled,
     CheckCircleFilled,
     WarningFilled,
     ExclamationCircleFilled} from '@ant-design/icons';
-import MainContainer from '../../mains/MainContainer';
-const Home = (props) => {
-    const params = props.params
+export default function Home(){
     return (
         <>
             <div className={style.contentSpace}>
@@ -62,4 +60,3 @@ const Home = (props) => {
         </>
     )
 }
-export default Home
