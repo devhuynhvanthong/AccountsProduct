@@ -21,8 +21,7 @@ export default function InfoComponent(props){
     }, [])
     return (
         <>
-           <MainContainer tab={"info"} title={"Trang cá nhân"}>
-            <div className={style.contentSpace}>
+           <div className={style.contentSpace}>
                 <Space
                     direction="vertical"
                     size="middle">
@@ -126,7 +125,6 @@ export default function InfoComponent(props){
                     </Card>
                 </Space>
             </div>
-            </MainContainer>
         </>
     )
 }
