@@ -206,7 +206,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                           onSelect={(key_)=>onSelectMenuListener(key_.key)}
                           mode="inline"
                           defaultOpenKeys={[router.pathname.split('/')[1]]}
-                          defaultSelectedKeys={[getKeyPage() || '/']}
+                          defaultSelectedKeys={[getKeyPage() || 'home']}
                           items={items2}
                           className={styleGlobal.childrenMenuSider}
                         />
