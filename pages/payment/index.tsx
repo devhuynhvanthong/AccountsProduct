@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import MainContainer from "../../src/components/mains/MainContainer";
 import Publics_ from "../../utils/Publics";
 import MethodPayment from "./method-payment/MethodPayment";
-import Withdraw from "./withdraw/withdraw";
+import Withdraw from "./withdraw/Withdraw";
 
 const Payment = (props: any) => {
     const publics = Publics_()
