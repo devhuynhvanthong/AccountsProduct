@@ -7,7 +7,8 @@ import Publics_ from '../../utils/Publics'
 import DefaultLayout from '../../src/components/mains/DefaultLayoutComponent'
 
 export default function Login(props: any){
-    props.params.setTitle("Đăng nhập")
+    const params = props.params
+    params.setTitle("Đăng nhập")
     const publics = Publics_()
     const router = useRouter()
     const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
@@ -17,16 +18,10 @@ export default function Login(props: any){
     const [isClickLogin,setClickLogin] = useState(true)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
-    const [isMobile,setMobile] = useState(true)
     let domain: string | string[] | undefined = undefined
 
     useEffect(()=> {
-        if(publics.library.checkLogin()){
-          router.push('/')
-        }else{
-            setMobile(publics.isMobile())
-            domain = router.query.domain
-        }
+        domain = router.query.domain
       },[])
     const tranferPageBeforLogin = async (event_:Event) => {
         if(domain != undefined){
@@ -148,7 +143,7 @@ export default function Login(props: any){
         <>
             <HeaderComponent data={{title: "Login"}} />
             {
-                isMobile? 
+                params.isMobile? 
                 <LoginMobileComponent 
                     variables={variables}/>
                 : 
