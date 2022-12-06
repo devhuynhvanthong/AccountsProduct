@@ -6,8 +6,8 @@ import RegisterDesktopComponent from '../../src/components/desktops/accounts/Reg
 import RegisterMobileComponent from '../../src/components/mobiles/accounts/Register/RegisterComponent'
 import DefaultLayout from '../../src/components/mains/DefaultLayoutComponent';
 export default function Register(props: any){
-    props.params.setTitle("Đăng ký")
-    const [isMobile,setMobile] = useState(true)
+    const params = props.params
+    params.setTitle("Đăng ký")
     const publics = Publics_()
     const router = useRouter()
     const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
@@ -20,13 +20,6 @@ export default function Register(props: any){
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
     const [againPassword,setAgainPassword] = useState("")
-    useEffect(()=> {
-        if(publics.library.checkLogin()){
-            router.push('/')
-        }else{
-            setMobile(publics.isMobile())
-        }
-      },[])
 
     const handleRegister = async (event_: Event) => {
         if(isClickRegister){
@@ -119,7 +112,7 @@ export default function Register(props: any){
         <>
             <HeaderComponent data={{title: "Register"}} />
             {
-                isMobile 
+                params.isMobile 
                 ? 
                 <RegisterMobileComponent
                     variables={variables}/>

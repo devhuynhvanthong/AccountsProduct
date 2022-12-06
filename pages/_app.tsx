@@ -20,7 +20,9 @@ export default function App({Component, pageProps} : any){
     const [title,setTitle] = useState("")
     useEffect(()=>{
         if(!publics.library.checkLogin()){
-            router.push(publics.url.PATH_LOGIN)
+            if(router.pathname!= "/" + publics.url.PATH_REGISTER){
+                router.push(publics.url.PATH_LOGIN)
+            }
         }
         setMobile(publics.library.isMobile())
         publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")

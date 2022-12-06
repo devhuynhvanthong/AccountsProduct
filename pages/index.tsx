@@ -8,9 +8,9 @@ import HomeComponent from '../src/components/desktops/Home/HomeComponent'
 
 const Home = (props: any) => {
     props.params.setTitle("Trang chủ")
-    const public_ = Publics_()
+    const publics = Publics_()
     const router = useRouter()
-    
+    console.log("COOKIE",publics.cookie.Get(publics.constant.KEY_ACCESS_TOKEN,true))
     
     return (
         <>  
