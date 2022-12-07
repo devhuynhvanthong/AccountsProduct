@@ -196,7 +196,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
           active?
             publics.library.checkLogin()?
               <div>
-                <HeadComponent isMobile={false}/>
+                <HeadComponent isMobile={true} />
                 <Container>
                   <Row>
                     <Col>

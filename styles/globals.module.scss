@@ -49,6 +49,14 @@ $width: 100vw;
     height: heightWrapper(9);
     z-index: 2;
 }
+
+._headGroup{
+    position: relative;
+    width: $width;
+    height: heightWrapper(9);
+    z-index: 2;
+}
+
 .head{
     background-color:#183b63;
     position: fixed;
@@ -59,6 +67,16 @@ $width: 100vw;
     box-shadow: 0px 0px 10px #8b8b8b;
     height: heightWrapper(5);
 }
+
+._head{
+    background-color:#ffffff;
+    position: fixed;
+    padding-top: heightWrapper(2);
+    padding-bottom: heightWrapper(2);
+    width: $width;
+    height: heightWrapper(5);
+}
+
 .screens{
     display: flex;
     overflow-y: auto;
@@ -72,6 +90,22 @@ $width: 100vw;
 }
 
 .body{
+    min-height: heightWrapper(100);
+}
+
+.screens_{
+    display: flex;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: $width;
+    justify-content: center;
+    justify-items:center;
+    flex-wrap: wrap;
+    min-height: heightWrapper(100);
+    z-index: 1;
+}
+
+.body_{
     min-height: heightWrapper(100);
 }
 
@@ -101,6 +135,10 @@ $width: 100vw;
 
 .logoHead{ position: absolute;
     height: heightWrapper(3.5);
+    left: 20px;
+}
+._logoHead{ position: absolute;
+    height: heightWrapper(2.5);
     left: 20px;
 }
 
