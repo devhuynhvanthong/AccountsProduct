@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react'
 import stylesGlobal from '../../../styles/globals.module.scss'
 import Publics_ from '../../../utils/Publics'
 import style from '../../../styles/head.module.scss'
+import _style from '../../../styles/_head.module.scss'
 import {Dropdown,Modal,ConfigProvider} from 'antd'
 import {LogoutOutlined} from '@ant-design/icons';
 import { useRouter } from 'next/router'
-export default function HeadComponent(){
+export default function HeadComponent(props){
     const publics = Publics_()
     const [dataInfoBasic,setDataInfoBasic] = useState({})
     const router = useRouter()
@@ -54,6 +55,8 @@ export default function HeadComponent(){
     };
     return(
         <>
+        {
+            !props.isMobile ?
             <ConfigProvider >
                 <div className={stylesGlobal.headGroup}>
                     <div className={stylesGlobal.head}>
@@ -66,7 +69,20 @@ export default function HeadComponent(){
                     </div>
                 </div>
             </ConfigProvider>
-            
+            :
+            <ConfigProvider >
+                <div className={stylesGlobal._headGroup}>
+                    <div className={stylesGlobal._head}>
+                        <img src='/images/logo_horizontal.png' className={stylesGlobal._logoHead} />
+                        <div className={_style.moduleRight}>
+                        <Dropdown menu={menuProps}>
+                            <img className={_style.avatar} src={dataInfoBasic.avatar} />
+                        </Dropdown>
+                        </div>
+                    </div>
+                </div>
+            </ConfigProvider>
+        }
         </>
     )
 }
