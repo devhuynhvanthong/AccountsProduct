@@ -22,16 +22,14 @@ export default function App({Component, pageProps} : any){
     const [title,setTitle] = useState("")
 
     useEffect(()=>{
-        console.log("Router",navigator.userAgentData.mobile)
         if(!publics.library.checkLogin()){
             if(router.pathname!= "/" + publics.url.PATH_REGISTER){
                 router.push(publics.url.PATH_LOGIN)
             }
         }
-        setMobile(!navigator.userAgentData.mobile)
+        setMobile(publics.library.isMobile())
         publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")
         setClient(true)
-
     },[])
 
     return (
