@@ -22,7 +22,7 @@ export default function LoginMobileComponents(props){
                                 </div>
                                 <div className={style.inputGroup}>
                                     <label className={style.label}>Tài khoản</label>
-                                    <input className={style.input} onKeyUp={variables.handleEnterLogin} value={variables.username} onChange={(e) => variables.handleEnterUsername(e)} placeholder="Nhập tài khoản của bạn..." required />
+                                    <input className={style.input} onKeyUp={variables.handleEnterLogin} value={variables.username} onChange={(e) => variables.handleEnterUsername(e)} placeholder="Nhập tài khoản của bạn..." required autoFocus/>
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorUsername}>
                                     <p className={style.labelError}>{variables.errorUsername}</p>

@@ -1,122 +1,45 @@
 import { useRouter } from "next/router";
 import React,{useState, useEffect } from "react";
 import HeaderComponent from "./HeaderComponent";
-import HeadComponent from "./HeadComponent";
-import styleGlobal from '../../../styles/globals.module.scss'
+import style from '../../../styles/_head.module.scss'
 import Container from "react-bootstrap/Container";
-import { 
-  HomeOutlined, 
-  SafetyCertificateOutlined,
-  UserOutlined,
-  CreditCardOutlined,
-  CloudServerOutlined,
-  DoubleRightOutlined,
-  SketchOutlined,
-  WalletOutlined,
-  DollarCircleOutlined,
-  FileDoneOutlined
-} from '@ant-design/icons';
 import { Layout, Menu, Col, Row, Breadcrumb } from 'antd';
 import Publics_ from "../../../utils/Publics";
+import icHome from '../../assets/images/icon_home.png'
+import icInfo from '../../assets/images/icon_info.png'
+import icPayment from '../../assets/images/icon_payment.png'
+import icPolicy from '../../assets/images/icon_policy.png'
+import icPacket from '../../assets/images/icon_packet.png'
+import Image from "next/image";
+import styleGlobal from '../../../styles/globals.module.scss'
 import FooterComponent from "./FooterComponent";
 
 type ParamMenu = {
   children: React.ReactNode,
-  title ?: String,
-  setChilrendPage: any
+  title ?: String
 }
 const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     const publics = Publics_()
     const router = useRouter()
-    const [breadcrumb,setBreadcrumb] = useState(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
+    const [selected,setSelected] = useState('home')
     const [active,setActive] = useState(false)
     useEffect(()=>{
-      switch(router.pathname.split('/')[1]){
-        case "/":
-          setBreadcrumb(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
-          break
-        case "info":
-          setBreadcrumb(<Breadcrumb.Item>Thông tin cá nhân</Breadcrumb.Item>)
-          break
-        case "policy":
-          setBreadcrumb(<Breadcrumb.Item>Bảo mật</Breadcrumb.Item>)
-          break
-        case "payment":
-          let br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Phương thức thanh toán</Breadcrumb.Item></>
-          switch(router.query.page){
-            case "withdraw":
-              br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Rút tiền</Breadcrumb.Item></>
-              break
-            case "deposit":
-              br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Nạp tiền</Breadcrumb.Item></>
-              break
-            case "history-payment":
-              br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Lịch sử thanh toán</Breadcrumb.Item></>
-              break
-          }
-          setBreadcrumb(br)
-          break
-        case "packet":
-          setBreadcrumb(<Breadcrumb.Item>Các gói dịch vụ</Breadcrumb.Item>)
-          break
-      }
-      if(router.isReady){
-        setActive(true)
-      }
-    },[router.query,router.pathname])
-    
-    const { Sider } = Layout;
-    
-    const items2 = [
-      {
-        key: 'home',
-        label: <p className={styleGlobal.title}>Trang chủ</p>,
-        icon: <HomeOutlined />
-      },
-      {
-        key: 'info',
-        label: <p className={styleGlobal.title}>Thông tin cá nhân</p>,
-        icon: <UserOutlined />
-      },
-      {
-        key: 'policy',
-        label: <p className={styleGlobal.title}>Bảo mật</p>,
-        icon: <SafetyCertificateOutlined />
-      },
-      {
-        key: 'payment',
-        label: <button className={styleGlobal.titleButton}>Thanh toán</button>,
-        icon: <SketchOutlined />,
-        children: [
-          {
-            key: 'method-payment',
-            label: <p className={styleGlobal.titleChildren}>Phương thức thanh toán</p>,
-            icon: <CreditCardOutlined />
-          },
-          {
-            key: 'withdraw',
-            label: <p className={styleGlobal.titleChildren}>Rút tiền</p>,
-            icon: <WalletOutlined />
-          },
-          {
-            key: 'deposit',
-            label: <p className={styleGlobal.titleChildren}>Nạp tiền</p>,
-            icon: <DollarCircleOutlined />
-          },
-          {
-            key: 'history-payment',
-            label: <p className={styleGlobal.titleChildren}>Lịch sử giao dịch</p>,
-            icon: <FileDoneOutlined />
-          }
-        ]
-      },
-      {
-        key: 'packet',
-        label: <p className={styleGlobal.title}>Các gói dịch vụ</p>,
-        icon: <CloudServerOutlined />
+      
+      if(!publics.library.checkLogin()){
+        router.push(publics.url.PATH_LOGIN)
+      }else{
+        if(router.pathname.split('/')[1]===""){
+          setSelected('home')
+        }else{
+          setSelected(router.pathname.split('/')[1])
+        }
+        if(router.isReady){
+          setActive(true)
+        }
       }
       
-    ]
+    },[router.query,router.pathname])
+    const { Sider } = Layout;
 
     const onSelectMenuListener = (keys: any) =>{
 
@@ -134,6 +57,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
         case "packet":
           path = publics.url.PATH_PACKET
           break
+        case "payment":
         case "method-payment":
           setChilrendPage(publics.url.PATH_METHOD_PAYMENT_)
           break
@@ -189,6 +113,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     }
   }
 
+  console.log("selected",selected)
   return(
       <>
         <HeaderComponent data={{title: title}} />
@@ -196,34 +121,104 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
           active?
             publics.library.checkLogin()?
               <div>
-                <HeadComponent isMobile={true} />
                 <Container>
                   <Row>
                     <Col>
-                      <Sider width={'15vw'}
-                        className={styleGlobal.menuSider}>
-                        <Menu
-                          onSelect={(key_)=>onSelectMenuListener(key_.key)}
-                          mode="inline"
-                          defaultOpenKeys={[router.pathname.split('/')[1]]}
-                          defaultSelectedKeys={[getKeyPage() || 'home']}
-                          items={items2}
-                          className={styleGlobal.childrenMenuSider}
-                        />
+                      <Sider className={style.siderHeader} width={'100vw'}>
+                          <Menu
+                            onSelect={(key_)=>onSelectMenuListener(key_.key)}
+                            mode="horizontal"
+                            defaultOpenKeys={[router.pathname.split('/')[1]]}
+                            defaultSelectedKeys={[getKeyPage() || 'home']}
+                            className={style.childrenMenuSider}
+                          >
+                            <Menu.Item key={'home'} >
+                              <div className={style.itemMenu}>
+                                <div className={style.iconItemMenuGroup}>
+                                  <Image className={style.iconItemMenu} alt="page home" src={icHome} />
+                                </div>
+                                <div>
+                                  <span className={style.labelItemMenu}>Trang chủ</span>
+                                </div>
+                                {
+                                  selected==='home' &&
+                                  <div className={style.inlineSelected}/>
+                                }
+                              </div>
+                            </Menu.Item>
+
+                            <Menu.Item className={style.item} key={'info'} title={false}>
+                              <div className={style.itemMenu}>
+                                <div className={style.iconItemMenuGroup}>
+                                  <Image className={style.iconItemMenu} alt="page home" src={icInfo} />
+                                </div>
+                                <div>
+                                  <span className={style.labelItemMenu}>Thông tin cá nhân</span>
+                                </div>
+                                {
+                                  selected==='info'&&
+                                  <div className={style.inlineSelected}/>
+                                }
+                              </div>
+                            </Menu.Item>
+
+                            <Menu.Item key={'policy'}>
+                              <div className={style.itemMenu}>
+                                <div className={style.iconItemMenuGroup}>
+                                  <Image className={style.iconItemMenu} alt="page home" src={icPolicy} />
+                                </div>
+                                <div>
+                                  <span className={style.labelItemMenu}>Bảo mật</span>
+                                </div>
+                                {
+                                  selected==='policy'&&
+                                  <div className={style.inlineSelected}/>
+                                }
+                              </div>
+                            </Menu.Item>
+
+                            <Menu.Item key={'payment'}>
+                              <div className={style.itemMenu}>
+                                <div className={style.iconItemMenuGroup}>
+                                  <Image className={style.iconItemMenu} alt="page home" src={icPayment} />
+                                </div>
+                                <div>
+                                  <span className={style.labelItemMenu}>Thanh toán</span>
+                                </div>
+                                {
+                                  selected==='payment'&&
+                                  <div className={style.inlineSelected}/>
+                                }
+                              </div>
+                            </Menu.Item>
+
+                            <Menu.Item key={'packet'}>
+                              <div className={style.itemMenu}>
+                                <div className={style.iconItemMenuGroup}>
+                                  <Image className={style.iconItemMenu} alt="page home" src={icPacket} />
+                                </div>
+                                <div>
+                                  <span className={style.labelItemMenu}>Các gói dịch vụ</span>
+                                </div>
+                                {
+                                  selected==='packet'&&
+                                  <div className={style.inlineSelected}/>
+                                }
+                              </div>
+                            </Menu.Item>
+
+                          </Menu>
                       </Sider>
                     </Col>
+                  </Row>
+                  <Row>
                     <Col>
-                    <div className={styleGlobal.container}>
-                      <Breadcrumb className={styleGlobal.breadcrumb}>
-                        <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} /> 
-                        {breadcrumb} 
-                      </Breadcrumb>
-                      <hr style={{width: '15vw', float:"left"}}/>
-                      <div className={styleGlobal.wrapper}>
-                        <div className={styleGlobal.body}>
+                    <div className={styleGlobal._container}>
+                      <div className={styleGlobal._wrapper}>
+                        <div className={styleGlobal._body}>
                           {children}
                         </div>
-                        <FooterComponent/>
+                        {/* <FooterComponent/> */}
                       </div>
                     </div>
                     </Col>

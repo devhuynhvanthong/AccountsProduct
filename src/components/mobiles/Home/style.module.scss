@@ -36,20 +36,22 @@ $width: 100vw;
 }
 
 .contentSpace{
-    width: initial;
+    display: inline;
+    width: max-content;
     margin-top: heightWrapper(1);
-    position: relative;
+    margin: 0 auto;
 }
 
-.borderBalances{
-    
-    color: white;
+.childrenBorder{
     padding-right: widthWrapper(3);
     padding-left: widthWrapper(3);
-    padding-top: heightWrapper(3);
-    padding-bottom: heightWrapper(3);
+    padding-bottom: heightWrapper(2);
+}
+.borderBalances{
+    width: 100%;
+    color: white;
     background-color: #5f6368;
-    border-radius: 10px;
+    border-radius: 30px;
     text-align: center;
 }
 
@@ -67,14 +69,16 @@ $width: 100vw;
 }
 
 .iconBalance{
-    font-size: sizeWH(3);
+    font-size: sizeWH(2);
     color: rgb(255, 255, 255);
 }
 
 .borderTitleModule{
+    padding-right: widthWrapper(3);
+    padding-left: widthWrapper(3);
+    padding-top: heightWrapper(2);
     width: 100%;
     text-align: left;
-    margin-bottom: heightWrapper(4);
 }
 .titleModule{
     font-family: "sans-serif";

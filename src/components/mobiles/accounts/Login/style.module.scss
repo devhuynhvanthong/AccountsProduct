@@ -69,7 +69,7 @@ $width: 100vw;
 
 .input:focus + label,.input:valid + label{
     margin-top: heightWrapper(1);
-    font-size: 80%;
+    font-size: 80% !important;
     font-weight: 350;
     border-radius: 5px;
     border: 1px solid #dadce0;

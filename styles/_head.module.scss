@@ -33,3 +33,51 @@ $width: 100vw;
     top: 20px;
     margin-right: widthWrapper(2);
 }
+
+.childrenMenuSider{
+    border: none;
+    font-size: widthWrapper(3.5);
+    width: $width;
+}
+
+.childrenMenuSider>li::after {
+    
+    content: none !important;
+}
+.itemMenu{
+    padding-top: heightWrapper(1);
+    display: inline-block;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+
+.iconItemMenu{
+    height: widthWrapper(8);
+    width: auto;
+}
+
+.iconItemMenuGroup{
+    margin: 0 auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+.labelItemMenu{
+    font-size: widthWrapper(4);
+    text-align: center;
+    transform: translateX(50%);
+}
+
+.siderHeader{
+    box-shadow: 5px 5px 10px #D9D6D6;
+    border-radius: 0px 0px 25px 25px;
+}
+
+.inlineSelected{
+    height: heightWrapper(0.5);
+    width: 100%;
+    margin-top: heightWrapper(1.5);
+    background-color: #3990F5;
+    border-radius: 10px 10px 0px 0px;
+}
