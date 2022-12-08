@@ -13,9 +13,16 @@ export default function App({Component, pageProps} : any){
     const Layout = Component.Layout || LayoutComponnet
     const router = useRouter()
     const [title,setTitle] = useState("")
+    const setWindowDimensions = () => {
+        if(window.innerWidth<=1500){
+            setMobile(true)
+        }else{
+            setMobile(false)
+        }
+    }
 
     useEffect(()=>{
-        console.log("Login",publics.library.checkLogin())
+        EventTarget
         if(!publics.library.checkLogin()){
             if(router.pathname!= "/" + publics.url.PATH_REGISTER){
                 router.push(publics.url.PATH_LOGIN)
@@ -25,11 +32,12 @@ export default function App({Component, pageProps} : any){
                 router.push("/")
             }
         }
-        setMobile(!publics.library.isMobile())
+        setMobile(publics.library.isMobile())
         publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")
         setClient(true)
+        window.addEventListener('resize', setWindowDimensions);
     },[])
-
+    
     return (
         <>
             {

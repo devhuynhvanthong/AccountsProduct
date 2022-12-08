@@ -15,7 +15,7 @@ export default function LoginDesktopComponents(props){
                 <div className={style.formContent}>
                     <div className={style.formContentChild}>
                         <Spin 
-                            tip={"Đang tải..."} 
+                            tip={<span className={style.labelLoading}>Đang tải...</span>} 
                             spinning={!variables.isClickLogin} >
                                 <div>
                                     <img src="images/logo.png" className={style.logo}/>

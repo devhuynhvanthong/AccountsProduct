@@ -23,7 +23,8 @@ export default function Login(props: any){
     useEffect(()=> {
         domain = router.query.domain
       },[])
-    const tranferPageBeforLogin = async (event_:Event) => {
+    const tranferPageBeforLogin = async () => {
+        console.log("AAAAAAAAAA thanh2 cong")
         if(domain != undefined){
             try{
                 const query = await publics.api.post(publics.url.URL_GET_DOMAIN,{
@@ -66,7 +67,7 @@ export default function Login(props: any){
                         }
                         const keys = publics.constant.KEY_ACCESS_TOKEN
                         publics.cookie.Set(keys,data_)
-                        tranferPageBeforLogin(event_)
+                        tranferPageBeforLogin()
                     }else{
                         setPassword("")
                         

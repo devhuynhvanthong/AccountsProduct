@@ -5,7 +5,6 @@ import {EuroCircleFilled,
     CheckCircleFilled,
     WarningFilled,
     ExclamationCircleFilled} from '@ant-design/icons';
-import MainContainer from '../../mains/MainContainer';
 const Home = (props) => {
     const params = props.params
     return (
