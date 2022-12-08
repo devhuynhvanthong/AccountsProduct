@@ -1,19 +1,30 @@
 import style from './style.module.scss'
-import {Row, Col,Divider} from 'antd'
+import {Row, Col,Divider,Image, Skeleton, Avatar} from 'antd'
 import {EuroCircleFilled,
     MenuUnfoldOutlined,
+    UserOutlined,
     CheckCircleFilled,
     WarningFilled,
     ExclamationCircleFilled} from '@ant-design/icons';
-import MainContainer from '../../mains/MainContainer';
 const Home = (props) => {
     const params = props.params
+    const data = props.data
     return (
         <>
             <div className={style.contentSpace}>
                 <div>
-                    <div>
-                        
+                    <div className={style.avatarGroup}>
+                        <Avatar  
+                            className={style.avatar} 
+                            src={data.avatar} />
+                        <div className={style.labelWelcome}>Xin chào!</div>
+                        <div className={style.txtName}>
+                            <Skeleton 
+                                className={style.skeleton} 
+                                loading={data.name!=undefined?false:true}>
+                                {data.name}
+                            </Skeleton>
+                        </div>
                     </div>
                 </div>
 
@@ -66,6 +77,15 @@ const Home = (props) => {
                                 </div>
                             </Col>
                         </Row>
+                    </div>
+                </div>
+
+                <div className={style.chartGroup}>
+                    <label className={style.labelChart}>
+                        Biểu đồ thành phần
+                    </label>
+                    <div>
+                        Chart
                     </div>
                 </div>
             </div>

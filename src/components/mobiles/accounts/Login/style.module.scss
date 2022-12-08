@@ -18,7 +18,7 @@ $width: 100vw;
 }
 
 .wrapper{
-    width: widthWrapper(90);
+    width: $width;
     position: relative;
     display: flex;
     grid-template-rows: 1fr auto;
@@ -90,6 +90,10 @@ $width: 100vw;
     font-family: "sans-serif";
     margin-top: heightWrapper(1);
     border: 1px solid #0749a0;
+}
+
+.labelLoading{
+    font-size: widthWrapper(4);
 }
 
 .input{

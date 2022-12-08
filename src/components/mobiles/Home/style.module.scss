@@ -89,3 +89,58 @@ $width: 100vw;
     background-color: white;
 }
 
+.labelWelcome{
+    font-size: widthWrapper(4);
+    text-align: center;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+
+.txtName{
+    font-size: widthWrapper(6);
+    font-weight: 450;
+    text-align: center;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+    margin-bottom: heightWrapper(2);
+}
+
+.labelChart{
+    font-size: widthWrapper(5);
+    font-weight: 500;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.chartGroup{
+    margin-top: heightWrapper(5);
+}
+
+.skeleton{
+    width: widthWrapper(40);
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+.avatar{
+    background-color: #E98F3C;
+    outline: 1px solid #E98F3C;
+    width: widthWrapper(20) !important;
+    height: widthWrapper(20) !important;
+    margin: heightWrapper(2) auto;
+    height: auto !important;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+
+.avatarGroup{
+    width: 100%;
+}
