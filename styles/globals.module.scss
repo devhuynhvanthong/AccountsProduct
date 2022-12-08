@@ -43,6 +43,24 @@ $width: 100vw;
     justify-items: center;
     width: widthWrapper(81);
 }
+
+._wrapper{
+    padding: 0 heightWrapper(1.5);
+    vertical-align: middle;
+    justify-content: center;
+    justify-items: center;
+}
+
+._container{
+    margin-top: heightWrapper(1.5);
+    z-index: 0;
+    width: $width;
+}
+
+._body{
+    min-height: heightWrapper(100);
+}
+
 .headGroup{
     position: relative;
     width: $width;

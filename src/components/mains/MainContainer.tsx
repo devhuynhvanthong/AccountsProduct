@@ -22,8 +22,7 @@ import FooterComponent from "./FooterComponent";
 
 type ParamMenu = {
   children: React.ReactNode,
-  title ?: String,
-  setChilrendPage: any
+  title ?: String
 }
 const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     const publics = Publics_()
@@ -31,38 +30,43 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     const [breadcrumb,setBreadcrumb] = useState(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
     const [active,setActive] = useState(false)
     useEffect(()=>{
-      switch(router.pathname.split('/')[1]){
-        case "/":
-          setBreadcrumb(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
-          break
-        case "info":
-          setBreadcrumb(<Breadcrumb.Item>Thông tin cá nhân</Breadcrumb.Item>)
-          break
-        case "policy":
-          setBreadcrumb(<Breadcrumb.Item>Bảo mật</Breadcrumb.Item>)
-          break
-        case "payment":
-          let br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Phương thức thanh toán</Breadcrumb.Item></>
-          switch(router.query.page){
-            case "withdraw":
-              br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Rút tiền</Breadcrumb.Item></>
-              break
-            case "deposit":
-              br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Nạp tiền</Breadcrumb.Item></>
-              break
-            case "history-payment":
-              br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Lịch sử thanh toán</Breadcrumb.Item></>
-              break
-          }
-          setBreadcrumb(br)
-          break
-        case "packet":
-          setBreadcrumb(<Breadcrumb.Item>Các gói dịch vụ</Breadcrumb.Item>)
-          break
+      if(!publics.library.checkLogin()){
+        router.push(publics.url.PATH_LOGIN)
+      }else{
+        switch(router.pathname.split('/')[1]){
+          case "/":
+            setBreadcrumb(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
+            break
+          case "info":
+            setBreadcrumb(<Breadcrumb.Item>Thông tin cá nhân</Breadcrumb.Item>)
+            break
+          case "policy":
+            setBreadcrumb(<Breadcrumb.Item>Bảo mật</Breadcrumb.Item>)
+            break
+          case "payment":
+            let br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Phương thức thanh toán</Breadcrumb.Item></>
+            switch(router.query.page){
+              case "withdraw":
+                br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Rút tiền</Breadcrumb.Item></>
+                break
+              case "deposit":
+                br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Nạp tiền</Breadcrumb.Item></>
+                break
+              case "history-payment":
+                br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Lịch sử thanh toán</Breadcrumb.Item></>
+                break
+            }
+            setBreadcrumb(br)
+            break
+          case "packet":
+            setBreadcrumb(<Breadcrumb.Item>Các gói dịch vụ</Breadcrumb.Item>)
+            break
+        }
+        if(router.isReady){
+          setActive(true)
+        }
       }
-      if(router.isReady){
-        setActive(true)
-      }
+      
     },[router.query,router.pathname])
     
     const { Sider } = Layout;
