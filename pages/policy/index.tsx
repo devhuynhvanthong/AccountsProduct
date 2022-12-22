@@ -1,11 +1,10 @@
 import MainContainer from "../../src/components/mains/MainContainer";
 
-export default function Info(){
+export default function Info(props: any){
+    props.params.setTitle("Bảo mật")
     return (
         <>
-        <MainContainer tab={"policy"} title={"Bảo mật"}>
-            <span>Tính năng đang phát triển</span>
-        </MainContainer>
+        <span>Tính năng đang phát triển</span>
         </>
     )
 }

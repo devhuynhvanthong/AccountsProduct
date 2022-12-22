@@ -3,6 +3,7 @@ import style from './style.module.scss'
 import styleGlobals from '../../../../../styles/globals.module.scss'
 import {Spin } from 'antd';
 import Publics_ from "../../../../../utils/Publics"
+import Image from "next/image";
 export default function LoginDesktopComponents(props){
     useEffect(()=>{
     },[])
@@ -14,7 +15,7 @@ export default function LoginDesktopComponents(props){
                 <div className={style.formContent}>
                     <div className={style.formContentChild}>
                         <Spin 
-                            tip={"Đang tải..."} 
+                            tip={<span className={style.labelLoading}>Đang tải...</span>} 
                             spinning={!variables.isClickLogin} >
                                 <div>
                                     <img src="images/logo.png" className={style.logo}/>

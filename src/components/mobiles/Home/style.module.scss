@@ -1,0 +1,144 @@
+$height: 100vh;
+$width: 100vw;
+
+@function heightWrapper($value){
+    @return ($height - ($height - $value));
+}
+@function widthWrapper($value){
+    @return ($width - ($width - $value));
+}
+ @function ratioScreen(){
+    @return calc(100vmax/100vmin);
+ }
+@function sizeWH($value){
+    @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
+}
+
+.avatarSmall{
+    width: sizeWH(5);
+    border-radius: 100%;
+    outline: 1px;
+    border: 1px solid #000;
+}
+
+.elementV1{
+    justify-items: center;
+}
+
+.elementV2{
+    width: 100%;
+    text-align: center;
+}
+
+.ellipseV3{
+    cursor: pointer;
+    text-align: right;
+}
+
+.contentSpace{
+    display: inline;
+    width: max-content;
+    margin-top: heightWrapper(1);
+    margin: 0 auto;
+}
+
+.childrenBorder{
+    padding-right: widthWrapper(3);
+    padding-left: widthWrapper(3);
+    padding-bottom: heightWrapper(2);
+}
+.borderBalances{
+    width: 100%;
+    color: white;
+    background-color: #5f6368;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.labelBalance{
+    font-size: sizeWH(3.5);
+    font-weight: 495;
+    text-align: center;
+    font-family: "sans-serif";
+}
+
+.contentBalance{
+    font-size: sizeWH(2.5);
+    text-align: center;
+    font-family: "sans-serif";
+}
+
+.iconBalance{
+    font-size: sizeWH(2);
+    color: rgb(255, 255, 255);
+}
+
+.borderTitleModule{
+    padding-right: widthWrapper(3);
+    padding-left: widthWrapper(3);
+    padding-top: heightWrapper(2);
+    width: 100%;
+    text-align: left;
+}
+.titleModule{
+    font-family: "sans-serif";
+    font-size: sizeWH(3);
+}
+
+.divider{
+    background-color: white;
+}
+
+.labelWelcome{
+    font-size: widthWrapper(4);
+    text-align: center;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+
+.txtName{
+    font-size: widthWrapper(6);
+    font-weight: 450;
+    text-align: center;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+    margin-bottom: heightWrapper(2);
+}
+
+.labelChart{
+    font-size: widthWrapper(5);
+    font-weight: 500;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.chartGroup{
+
+    text-align: center;
+    margin-top: heightWrapper(5);
+}
+
+.skeleton{
+    width: widthWrapper(40);
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+.avatar{
+    background-color: #E98F3C;
+    outline: 1px solid #E98F3C;
+    width: widthWrapper(20) !important;
+    height: widthWrapper(20) !important;
+    margin: heightWrapper(2) auto;
+    height: auto !important;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+}
+
+.avatarGroup{
+    width: 100%;
+}

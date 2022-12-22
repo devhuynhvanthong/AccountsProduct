@@ -1,0 +1,83 @@
+$height: 100vh;
+$width: 100vw;
+
+@function heightWrapper($value){
+    @return ($height - ($height - $value));
+}
+@function widthWrapper($value){
+    @return ($width - ($width - $value));
+}
+ @function ratioScreen(){
+    @return calc(100vmax/100vmin);
+ }
+@function sizeWH($value){
+    @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
+}
+
+.avatar{
+    cursor: pointer;
+    width: heightWrapper(3);
+    height: heightWrapper(3);
+    border-radius: 100%;
+    outline: 1px;
+    border: 1px solid #000;
+    box-shadow: 1px 1px 5px #4b1010,
+    1px 1px 5px #4b1010,
+    inset 1px 1px 5px #fff,
+    inset 1px 1px 5px #fff;
+}
+
+.moduleRight{
+    position: absolute;
+    right: 0%;
+    top: 20px;
+    margin-right: widthWrapper(2);
+}
+
+.childrenMenuSider{
+    border: none;
+    font-size: widthWrapper(3.5);
+    width: $width;
+}
+
+.childrenMenuSider>li::after {
+    
+    content: none !important;
+}
+.itemMenu{
+    padding-top: heightWrapper(1);
+    display: inline-block;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+
+.iconItemMenu{
+    height: widthWrapper(8);
+    width: auto;
+}
+
+.iconItemMenuGroup{
+    margin: 0 auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+.labelItemMenu{
+    font-size: widthWrapper(4);
+    text-align: center;
+    transform: translateX(50%);
+}
+
+.siderHeader{
+    box-shadow: 5px 5px 10px #D9D6D6;
+    border-radius: 0px 0px 25px 25px;
+}
+
+.inlineSelected{
+    height: heightWrapper(0.5);
+    width: 100%;
+    margin-top: 15px;
+    background-color: #3990F5;
+    border-radius: 10px 10px 0px 0px;
+}

@@ -1,16 +1,12 @@
 import React from "react"
+import style from '../../../styles/style_desktop.module.scss'
 export default function LayoutMobile({children}){
     const isShow = true
     return(
         <>
-            { isShow ?
-                alert("Phiên bản chưa hỗ trợ mobile...!!!")
-                :
-                <main>
-                    {children}
-                </main>
-            }
-            
+            <div className={style.container}>
+                {children}
+            </div>
         </>
     )
 }

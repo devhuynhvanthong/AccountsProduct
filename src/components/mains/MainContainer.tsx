@@ -22,10 +22,9 @@ import FooterComponent from "./FooterComponent";
 
 type ParamMenu = {
   children: React.ReactNode,
-  tab: "home" | "info" | "policy" | "payment" | "packet" |"payment/deposit" |"payment/history-payment"|"payment/method-payment"|"payment/withdraw",
   title ?: String
 }
-const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
+const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     const publics = Publics_()
     const router = useRouter()
     const [breadcrumb,setBreadcrumb] = useState(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
@@ -34,8 +33,8 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
       if(!publics.library.checkLogin()){
         router.push(publics.url.PATH_LOGIN)
       }else{
-        switch(tab){
-          case "home":
+        switch(router.pathname.split('/')[1]){
+          case "/":
             setBreadcrumb(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
             break
           case "info":
@@ -46,7 +45,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
             break
           case "payment":
             let br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Phương thức thanh toán</Breadcrumb.Item></>
-            switch(tab.split('/')[1]){
+            switch(router.query.page){
               case "withdraw":
                 br = <><Breadcrumb.Item>Thanh toán</Breadcrumb.Item> <Breadcrumb.Item>Rút tiền</Breadcrumb.Item></>
                 break
@@ -63,9 +62,12 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
             setBreadcrumb(<Breadcrumb.Item>Các gói dịch vụ</Breadcrumb.Item>)
             break
         }
+        if(router.isReady){
+          setActive(true)
+        }
       }
-      setActive(true)
-    },[router.query.tab])
+      
+    },[router.query,router.pathname])
     
     const { Sider } = Layout;
     
@@ -121,88 +123,122 @@ const MainContainer: React.FC<ParamMenu> = ({children,tab, title}) => {
     ]
 
     const onSelectMenuListener = (keys: any) =>{
+
+      let path = ""
       switch(keys){
         case "home":
-          router.push("/")
+          path = "/"
           break
         case "info":
-          router.push(publics.url.PATH_PERSONAL_INFO)
+          path = publics.url.PATH_PERSONAL_INFO
           break
         case "policy":
-          router.push(publics.url.PATH_POLICY)
-          break
-        case "payment":
-          router.push(publics.url.PATH_PAYMENT)
+          path = publics.url.PATH_POLICY
           break
         case "packet":
-          router.push(publics.url.PATH_PACKET)
+          path = publics.url.PATH_PACKET
           break
         case "method-payment":
-          router.push(publics.url.PATH_METHOD_PAYMENT)
+          setChilrendPage(publics.url.PATH_METHOD_PAYMENT_)
           break
         case "withdraw":
-          router.push(publics.url.PATH_WITHDRAW)
+          setChilrendPage(publics.url.PATH_WITHDRAW_)
           break
         case "deposit":
-          router.push(publics.url.PATH_DEPOSIT)
+          setChilrendPage(publics.url.PATH_DEPOSIT_)
           break
         case "history-payment":
-          router.push(publics.url.PATH_HISTORY_PAYMENT)
+          setChilrendPage(publics.url.PATH_HISTORY_PAYMENT_)
           break
       }
-    }
-    if(title!=undefined){
-      title = title + " - "
-    }else{
-      title = ""
+
+      if(path != ""){
+        router.push({
+          pathname: path
+        })
+      }
     }
 
-    return(
-        <>
-          <HeaderComponent data={{title: title + "My Account"}} />
-          {
-            active?
-              publics.library.checkLogin()?
-                <div>
-                  <HeadComponent />
-                  <Container>
-                    <Row>
-                      <Col>
-                        <Sider width={'15vw'}
-                          className={styleGlobal.menuSider}>
-                          <Menu
-                            onSelect={(key_)=>onSelectMenuListener(key_.key)}
-                            mode="inline"
-                            defaultOpenKeys={[tab.split('/')[0]]}
-                            defaultSelectedKeys={[tab.search("/")==-1?tab:tab.split('/')[1]]}
-                            items={items2}
-                            className={styleGlobal.childrenMenuSider}
-                          />
-                        </Sider>
-                      </Col>
-                      <Col>
-                      <div className={styleGlobal.container}>
-                        <Breadcrumb className={styleGlobal.breadcrumb}>
-                          <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} /> 
-                          {breadcrumb}
-                        </Breadcrumb>
-                        <hr style={{width: '15vw', float:"left"}}/>
-                        <div className={styleGlobal.wrapper}>
-                          <div className={styleGlobal.body}>
-                            {children}
-                          </div>
-                          <FooterComponent/>
-                        </div>
-                      </div>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
-              :<div/>
-            :<div/>
+    const setChilrendPage = (_page:any) => {
+      router.push({
+          pathname: publics.url.PATH_PAYMENT,
+          query:{
+              page: _page
           }
-        </>
-    )
+      })
+  }
+
+  const getKeyPage = () => {
+
+    switch (router.pathname.split('/')[1]) {
+      case "/":
+        return 'home'
+      case "info":
+        return 'info'
+      case "policy":
+        return 'policy'
+      case "payment":
+        switch(router.query.page){
+          case "withdraw":
+            return 'withdraw'
+          case "deposit":
+            return 'deposit'
+          case "history-payment":
+            return 'history-payment'
+          default:
+            return 'method-payment'
+        }
+      case "packet":
+        return 'packet'
+    }
+  }
+
+  return(
+      <>
+        <HeaderComponent data={{title: title}} />
+        {
+          active?
+            publics.library.checkLogin()?
+              <div>
+                <HeadComponent isMobile={false}/>
+                <Container>
+                  <Row>
+                    <Col>
+                      <Sider width={'15vw'}
+                        className={styleGlobal.menuSider}>
+                        <Menu
+                          onSelect={(key_)=>onSelectMenuListener(key_.key)}
+                          mode="inline"
+                          defaultOpenKeys={[router.pathname.split('/')[1]]}
+                          defaultSelectedKeys={[getKeyPage() || 'home']}
+                          items={items2}
+                          className={styleGlobal.childrenMenuSider}
+                        />
+                      </Sider>
+                    </Col>
+                    <Col>
+                    <div className={styleGlobal.container}>
+                      <Breadcrumb className={styleGlobal.breadcrumb}>
+                        <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} /> 
+                        {breadcrumb} 
+                      </Breadcrumb>
+                      <hr style={{width: '15vw', float:"left"}}/>
+                      <div className={styleGlobal.wrapper}>
+                        <div className={styleGlobal.body}>
+                          {children}
+                        </div>
+                        <FooterComponent/>
+                      </div>
+                    </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            :<div/>
+          :<div/>
+        }
+      </>
+  )
 }
 
 export default MainContainer

@@ -4,9 +4,11 @@ import LoginDesktopComponent from '../../src/components/desktops/accounts/Login/
 import LoginMobileComponent from '../../src/components/mobiles/accounts/Login/LoginComponent'
 import HeaderComponent from '../../src/components/mains/HeaderComponent'
 import Publics_ from '../../utils/Publics'
+import DefaultLayout from '../../src/components/mains/DefaultLayoutComponent'
 
-export default function Login(){
-
+export default function Login(props: any){
+    const params = props.params
+    params.setTitle("Đăng nhập")
     const publics = Publics_()
     const router = useRouter()
     const [errorPassword,setErrorPassword] = useState(publics.validation.FIELD_REQUIRED)
@@ -16,25 +18,21 @@ export default function Login(){
     const [isClickLogin,setClickLogin] = useState(true)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
-    const [isMobile,setMobile] = useState(true)
-    let domain: string | string[] | undefined = undefined
-
-    useEffect(()=> {
-        if(publics.library.checkLogin()){
-          router.push('/')
-        }else{
-            setMobile(publics.isMobile())
-            domain = router.query.domain
-        }
-      },[])
-    const tranferPageBeforLogin = async (event_:Event) => {
+    // let domain: string | string[] | undefined = undefined
+    //
+    // useEffect(()=> {
+    //     domain = router.query.domain
+    //   },[])
+    const tranferPageBeforLogin = async () => {
+        const domain = router.query.domain
         if(domain != undefined){
             try{
-                const query = await publics.api.post(publics.url.URL_GET_DOMAIN,{
+                const query = await publics.api.get(publics.url.URL_GET_DOMAIN,{
                     code_service: domain
-                },"")
+                })
+                console.log("Domain",query)
                 if(query.status===publics.constant.SUCCESS){
-                    publics.library.startPageUrl(query.data)
+                    publics.library.startPageUrl(query.body)
                 }else{
                     router.push("/")
                 }
@@ -48,16 +46,32 @@ export default function Login(){
 
     const handleLogin = (event_: Event) => {
         if(isClickLogin){
+            let browserName;
+
+            if(navigator.userAgent.match(/chrome|chromium|crios/i)){
+                browserName = "chrome";
+            }else if(navigator.userAgent.match(/firefox|fxios/i)){
+                browserName = "firefox";
+            }  else if(navigator.userAgent.match(/safari/i)){
+                browserName = "safari";
+            }else if(navigator.userAgent.match(/opr\//i)){
+                browserName = "opera";
+            } else if(navigator.userAgent.match(/edg/i)){
+                browserName = "edge";
+            }else{
+                browserName="none";
+            }
             const username_ = document.getElementsByTagName('input')[0].value
             const password_ = document.getElementsByTagName('input')[1].value
             if (password_.toString().length > 0 && username_.toString().length > 0) {
                 let body = {
                     username: username_,
-                    password: password_
+                    password: password_,
+                    browser: browserName,
                 }
                 setClickLogin(false)
                 publics.api.post(publics.url.URL_LOGIN, body).then(data=>{
-                    console.log(data)
+                    
                     if(data.status==publics.constant.SUCCESS){
                         if(data.category === publics.constant.VALIDATE){
                             publics.library.createNotification(publics.constant.ERROR,data.data)
@@ -65,13 +79,12 @@ export default function Login(){
                             publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
                         }
                         let data_ = {
-                            accsessToken : data.data.data.accsess_token,
+                            accsessToken : data.body.accsess_token,
                             date: publics.library.getDateTime()
                         }
                         const keys = publics.constant.KEY_ACCESS_TOKEN
-                        console.log("Data",keys)
                         publics.cookie.Set(keys,data_)
-                        tranferPageBeforLogin(event_)
+                        tranferPageBeforLogin()
                     }else{
                         setPassword("")
                         
@@ -81,7 +94,11 @@ export default function Login(){
                             publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
                         }
                     }
-                }).finally(() => setClickLogin(true))
+                })
+                .catch(error=>{
+                    console.log(error)
+                })
+                .finally(() => setClickLogin(true))
                 
             }else{
                 if (username.toString().length <= 0) {
@@ -144,15 +161,15 @@ export default function Login(){
         <>
             <HeaderComponent data={{title: "Login"}} />
             {
-                isMobile? 
+                params.isMobile? 
                 <LoginMobileComponent 
                     variables={variables}/>
                 : 
                 <LoginDesktopComponent 
-                    variables={variables}/> 
-                
-                
+                    variables={variables}/>
             }
         </>
     )
 }
+
+Login.Layout = DefaultLayout
