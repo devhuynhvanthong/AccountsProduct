@@ -14,7 +14,11 @@ const Home = (props: any) => {
     const [dataInfoBasic,setDataInfoBasic] = useState({})
     useEffect(()=>{
         (async () => {
-            publics.api.post(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
+            publics.api.post(publics.url.URL_GET_PERSONAL_INFO,
+                {
+                    balance:true
+                }
+                ).then((data)=>{
                 if(data.status == publics.constant.SUCCESS){
                     setDataInfoBasic(data.data.data[0])
                 }

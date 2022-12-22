@@ -24,7 +24,7 @@ export default function App({Component, pageProps} : any){
     useEffect(()=>{
         EventTarget
         if(!publics.library.checkLogin()){
-            if(router.pathname!= "/" + publics.url.PATH_REGISTER){
+            if(router.pathname!= "/" + publics.url.PATH_REGISTER && router.pathname!= "/" + publics.url.PATH_LOGIN){
                 router.push(publics.url.PATH_LOGIN)
             }
         }else{
@@ -32,7 +32,7 @@ export default function App({Component, pageProps} : any){
                 router.push("/")
             }
         }
-        setMobile(publics.library.isMobile())
+        setMobile(!publics.library.isMobile())
         publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")
         setClient(true)
         window.addEventListener('resize', setWindowDimensions);

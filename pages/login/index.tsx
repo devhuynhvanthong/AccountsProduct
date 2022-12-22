@@ -22,9 +22,9 @@ export default function Login(props: any){
 
     useEffect(()=> {
         domain = router.query.domain
+        console.log("Router",router)
       },[])
     const tranferPageBeforLogin = async () => {
-        console.log("AAAAAAAAAA thanh2 cong")
         if(domain != undefined){
             try{
                 const query = await publics.api.post(publics.url.URL_GET_DOMAIN,{
@@ -45,12 +45,28 @@ export default function Login(props: any){
 
     const handleLogin = (event_: Event) => {
         if(isClickLogin){
+            let browserName;
+
+            if(navigator.userAgent.match(/chrome|chromium|crios/i)){
+                browserName = "chrome";
+            }else if(navigator.userAgent.match(/firefox|fxios/i)){
+                browserName = "firefox";
+            }  else if(navigator.userAgent.match(/safari/i)){
+                browserName = "safari";
+            }else if(navigator.userAgent.match(/opr\//i)){
+                browserName = "opera";
+            } else if(navigator.userAgent.match(/edg/i)){
+                browserName = "edge";
+            }else{
+                browserName="none";
+            }
             const username_ = document.getElementsByTagName('input')[0].value
             const password_ = document.getElementsByTagName('input')[1].value
             if (password_.toString().length > 0 && username_.toString().length > 0) {
                 let body = {
                     username: username_,
-                    password: password_
+                    password: password_,
+                    browser: browserName,
                 }
                 setClickLogin(false)
                 publics.api.post(publics.url.URL_LOGIN, body).then(data=>{

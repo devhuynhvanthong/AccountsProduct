@@ -1,30 +1,51 @@
 import style from './style.module.scss'
 import {Row, Col,Divider,Image, Skeleton, Avatar} from 'antd'
+import React, { useState, useEffect } from 'react';
 import {EuroCircleFilled,
     MenuUnfoldOutlined,
     UserOutlined,
     CheckCircleFilled,
     WarningFilled,
     ExclamationCircleFilled} from '@ant-design/icons';
+import PieChart from '../../mains/PieChart'
+import { useRouter } from 'next/router';
 const Home = (props) => {
+    const router = useRouter()
     const params = props.params
     const data = props.data
+    const [loading,setLoading] = useState(true)
+    useEffect(()=>{
+        if(data!=undefined && router.isReady){
+            setLoading(false)
+        }else{
+            setLoading(true)
+        }
+    },[data])
     return (
         <>
             <div className={style.contentSpace}>
                 <div>
                     <div className={style.avatarGroup}>
-                        <Avatar  
+                        <Skeleton
+                        round={100}
+                        avatar
+                        active
+                        style={{
+                            position: 'relative',
+                            left: '50vw',
+                            transform: 'translateX(-50%)',
+                            width:'20vw', 
+                            height:'20vw'}}
+                        loading={loading}>
+                                <Avatar 
+                                 
                             className={style.avatar} 
                             src={data.avatar} />
-                        <div className={style.labelWelcome}>Xin chào!</div>
-                        <div className={style.txtName}>
-                            <Skeleton 
-                                className={style.skeleton} 
-                                loading={data.name!=undefined?false:true}>
+                            <div className={style.labelWelcome}>Xin chào!</div>
+                            <div className={style.txtName}>
                                 {data.name}
-                            </Skeleton>
-                        </div>
+                            </div>
+                        </Skeleton>
                     </div>
                 </div>
 
@@ -85,7 +106,27 @@ const Home = (props) => {
                         Biểu đồ thành phần
                     </label>
                     <div>
-                        Chart
+                        {
+                            loading?
+                            <Skeleton.Avatar
+                            active
+                            style={{
+                                width:'35vw', 
+                                height:'35vw',
+                                marginTop: '3vh'}}
+                                />
+                            :
+                            data.balanceStatistics?
+                            <PieChart data={data.balanceStatistics} />:
+                            <Skeleton.Avatar
+                            active
+                            style={{
+                                width:'35vw', 
+                                height:'35vw',
+                                marginTop: '3vh'}}
+                                />
+                        }
+                        
                     </div>
                 </div>
             </div>
