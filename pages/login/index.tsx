@@ -18,20 +18,21 @@ export default function Login(props: any){
     const [isClickLogin,setClickLogin] = useState(true)
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
-    let domain: string | string[] | undefined = undefined
-
-    useEffect(()=> {
-        domain = router.query.domain
-        console.log("Router",router)
-      },[])
+    // let domain: string | string[] | undefined = undefined
+    //
+    // useEffect(()=> {
+    //     domain = router.query.domain
+    //   },[])
     const tranferPageBeforLogin = async () => {
+        const domain = router.query.domain
         if(domain != undefined){
             try{
-                const query = await publics.api.post(publics.url.URL_GET_DOMAIN,{
+                const query = await publics.api.get(publics.url.URL_GET_DOMAIN,{
                     code_service: domain
-                },"")
+                })
+                console.log("Domain",query)
                 if(query.status===publics.constant.SUCCESS){
-                    publics.library.startPageUrl(query.data)
+                    publics.library.startPageUrl(query.body)
                 }else{
                     router.push("/")
                 }
@@ -78,7 +79,7 @@ export default function Login(props: any){
                             publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
                         }
                         let data_ = {
-                            accsessToken : data.data.data.accsess_token,
+                            accsessToken : data.body.accsess_token,
                             date: publics.library.getDateTime()
                         }
                         const keys = publics.constant.KEY_ACCESS_TOKEN
