@@ -8,6 +8,7 @@ export default function Urls(){
     const URL_GET_DOMAIN = API + "get_domain"
     const URL_GET_PERSONAL_INFO = API + 'get_personal_info'
     const URL_REGISTER =  API + "register"
+    const URL_LOGOUT = API + 'logout'
 
     const PATH_REGISTER = "register"
     const PATH_LOGIN = "login"
@@ -53,7 +54,8 @@ export default function Urls(){
         PATH_SHARED,
         PATH_PAYMENT,
         PATH_INTRODUCE,
-        URL_REGISTER
-        
+        URL_REGISTER,
+        URL_LOGOUT
+
     }
 }

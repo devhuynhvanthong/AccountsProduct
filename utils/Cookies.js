@@ -12,7 +12,7 @@ export default function Cookies  () {
             expires:30,
             secure: true,
             sameSite:'strict',
-            domain: 'aigoox.com'
+            // domain: 'aigoox.com'
         })
     }
 
@@ -26,7 +26,7 @@ export default function Cookies  () {
         }else{
             return null
         }
-        
+
     }
 
     const Remove = (key) => {

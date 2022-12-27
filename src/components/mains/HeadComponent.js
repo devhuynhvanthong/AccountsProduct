@@ -13,9 +13,9 @@ export default function HeadComponent(props){
     const router = useRouter()
     useEffect(() => {
         (async () => {
-            publics.api.post(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
+            publics.api.get(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
                 if(data.status == publics.constant.SUCCESS){
-                    setDataInfoBasic(data.data.data[0])
+                    setDataInfoBasic(data.body.info)
                 }
             })
 
@@ -48,7 +48,7 @@ export default function HeadComponent(props){
           icon: <LogoutOutlined />,
         },
       ];
-      
+
     const menuProps = {
         items,
         onClick: handleMenuClick,

@@ -9,7 +9,7 @@ export default function CallApi(){
     const cookie = Cookies()
     const constants = Constants()
     if (cookie.Get(constants.KEY_ACCESS_TOKEN,false)!=null) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,false)}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,true).accsessToken}`;
     }
     return axios({
       method: 'PUT',
@@ -31,7 +31,7 @@ export default function CallApi(){
     const cookie = Cookies()
     const constants = Constants()
     if (cookie.Get(constants.KEY_ACCESS_TOKEN,false)!=null) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,false)}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,true).accsessToken}`;
     }
     return axios({
       method: 'DELETE',
@@ -53,9 +53,9 @@ export default function CallApi(){
     const cookie = Cookies()
     const constants = Constants()
     if (cookie.Get(constants.KEY_ACCESS_TOKEN,false)!=null) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,false)}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,true).accsessToken}`;
     }
-    
+
     let url = endpoint
     return axios({
       method: 'GET',
@@ -74,11 +74,12 @@ export default function CallApi(){
       });
   };
 
-  const post = async (endpoint, body = {}, header_ = "") => {
+  const post = async (endpoint, body = {},header_ = "") => {
     const cookie = Cookies()
     const constants = Constants()
+    console.log("COOKIE",cookie.Get(constants.KEY_ACCESS_TOKEN,true))
     if (cookie.Get(constants.KEY_ACCESS_TOKEN,false)!=null) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,false)}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.Get(constants.KEY_ACCESS_TOKEN,true).accsessToken}`;
     }
     let url = endpoint
     return axios({
@@ -123,7 +124,7 @@ export default function CallApi(){
 
   return(
     {
-      post, get, put, deleteApi, upload 
+      post, get, put, deleteApi, upload
     }
   )
 }

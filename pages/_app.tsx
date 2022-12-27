@@ -14,11 +14,13 @@ export default function App({Component, pageProps} : any){
     const router = useRouter()
     const [title,setTitle] = useState("")
     const setWindowDimensions = () => {
-        if(window.innerWidth<=1500){
-            setMobile(true)
-        }else{
-            setMobile(false)
-        }
+        // if(window.innerWidth<=1500){
+        //     setMobile(true)
+        // }else{
+        //     setMobile(false)
+        // }
+
+        setMobile(publics.library.isMobile())
     }
 
     useEffect(()=>{
@@ -32,12 +34,12 @@ export default function App({Component, pageProps} : any){
                 router.push("/")
             }
         }
-        setMobile(!publics.library.isMobile())
+        setMobile(publics.library.isMobile())
         publics.library.setSessionStorageByKey("device",isMobile?"mobile":"desktop")
         setClient(true)
         window.addEventListener('resize', setWindowDimensions);
     },[])
-    
+
     return (
         <>
             {
@@ -51,8 +53,8 @@ export default function App({Component, pageProps} : any){
                     <ToastContainer />
                 </div>
             }
-            
+
         </>
-        
+
     )
 }

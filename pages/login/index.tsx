@@ -23,6 +23,25 @@ export default function Login(props: any){
     // useEffect(()=> {
     //     domain = router.query.domain
     //   },[])
+    useEffect(()=>{
+
+        if (router.isReady){
+            const session = router.query.session
+            console.log(router.query,session=='expired')
+            if (session=='expired'){
+                handleLogout()
+            }
+        }
+    },[router.isReady])
+    function handleLogout() {
+        publics.api.post(publics.url.URL_LOGOUT,).then(response=>{
+            if (response.status!=publics.constant.SUCCESS){
+                publics.library.createNotification(publics.constant.ERROR,"Đăng xuất thất bại!")
+            }else{
+                publics.cookie.Remove(publics.constant.KEY_ACCESS_TOKEN)
+            }
+        })
+    }
     const tranferPageBeforLogin = async () => {
         const domain = router.query.domain
         if(domain != undefined){
@@ -30,7 +49,6 @@ export default function Login(props: any){
                 const query = await publics.api.get(publics.url.URL_GET_DOMAIN,{
                     code_service: domain
                 })
-                console.log("Domain",query)
                 if(query.status===publics.constant.SUCCESS){
                     publics.library.startPageUrl(query.body)
                 }else{
@@ -71,7 +89,7 @@ export default function Login(props: any){
                 }
                 setClickLogin(false)
                 publics.api.post(publics.url.URL_LOGIN, body).then(data=>{
-                    
+
                     if(data.status==publics.constant.SUCCESS){
                         if(data.category === publics.constant.VALIDATE){
                             publics.library.createNotification(publics.constant.ERROR,data.data)
@@ -87,11 +105,11 @@ export default function Login(props: any){
                         tranferPageBeforLogin()
                     }else{
                         setPassword("")
-                        
+
                         if(data.category === publics.constant.VALIDATE){
                             publics.library.createNotification(publics.constant.ERROR,data.data)
                         }else{
-                            publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED) 
+                            publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED)
                         }
                     }
                 })
@@ -99,17 +117,17 @@ export default function Login(props: any){
                     console.log(error)
                 })
                 .finally(() => setClickLogin(true))
-                
+
             }else{
                 if (username.toString().length <= 0) {
                     setShowErrorUsername(true)
                 }
-        
+
                 if (password.toString().length <= 0) {
                     setShowErrorPassword(true)
                 }
             }
-        }        
+        }
     }
 
     const handleEnterPassword = (event_: any) => {
@@ -125,7 +143,7 @@ export default function Login(props: any){
     const handleForgotPassword = () => {
         publics.library.createNotification(publics.constant.WARNING,publics.validation.FEATURE_NOT_DEVELOP)
     }
-    
+
     const handleRegister = () => {
         router.push(publics.url.PATH_REGISTER)
     }
@@ -161,11 +179,11 @@ export default function Login(props: any){
         <>
             <HeaderComponent data={{title: "Login"}} />
             {
-                params.isMobile? 
-                <LoginMobileComponent 
+                params.isMobile?
+                <LoginMobileComponent
                     variables={variables}/>
-                : 
-                <LoginDesktopComponent 
+                :
+                <LoginDesktopComponent
                     variables={variables}/>
             }
         </>

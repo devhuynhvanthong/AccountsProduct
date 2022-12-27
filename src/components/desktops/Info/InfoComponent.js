@@ -11,9 +11,9 @@ export default function InfoComponent(props){
 
     useEffect(() => {
         (async () => {
-            publics.api.post(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
+            publics.api.get(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
                 if(data.status == publics.constant.SUCCESS){
-                    setDataInfoBasic(data.data.data[0])
+                    setDataInfoBasic(data.body.info)
                 }
             })
 
@@ -27,9 +27,9 @@ export default function InfoComponent(props){
                     size="middle">
                     <Card
                         className={style.card}
-                        title={<><p className={style.title}>Thông tin cơ bản</p><p className={style.description}>Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của AiGooX</p></>} 
+                        title={<><p className={style.title}>Thông tin cơ bản</p><p className={style.description}>Một số thông tin có thể hiển thị cho những người khác đang sử dụng dịch vụ của AiGooX</p></>}
                         size='large'>
-                        
+
                         <div>
                             <Row>
                                 <Col className={style.elementV1} span={8}>
@@ -80,7 +80,7 @@ export default function InfoComponent(props){
                             </Row>
                         </div>
                     </Card>
-                    <Card 
+                    <Card
                         className={style.card}
                         title={<p className={style.title}>Thông tin liên hệ</p>}
                         direction="vertical"

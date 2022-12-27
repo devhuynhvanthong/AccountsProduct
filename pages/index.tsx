@@ -18,23 +18,24 @@ const Home = (props: any) => {
                 {
                     balance:true
                 }
-                ).then((data)=>{
+                ).then(data=>{
+                console.log(data)
                 if(data.status == publics.constant.SUCCESS){
-                    setDataInfoBasic(data.data.data[0])
+                    setDataInfoBasic(data.body.info)
                 }
             })
         })()
     },[])
     return (
-        <>  
+        <>
         {
             !params.isMobile ?
             <HomeDesktopComponent params={props.params}/>:
-            <HomeMobileComponent 
-                data={dataInfoBasic} 
+            <HomeMobileComponent
+                data={dataInfoBasic}
                 params={props.params} />
         }
-            
+
         </>
     )
 }
