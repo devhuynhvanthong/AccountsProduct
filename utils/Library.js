@@ -1,20 +1,35 @@
-
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import Constants from './Constants'
-import { encrypt,decrypt } from 'n-krypta';
-import date from 'date-and-time';
-import { encode as base64Encode_,decode as base64Decode_ } from 'base-64'
-import { post } from './CallApi';
-import Urls from './Urls';
-import Cookies from './Cookies';
-import { useEffect } from 'react';
+import { decrypt, encrypt } from 'n-krypta'
+import date from 'date-and-time'
+import { decode as base64Decode_, encode as base64Encode_ } from 'base-64'
+import Urls from './Urls'
+import Cookies from './Cookies'
 
 export default function Library(){
 
   const urls = Urls()
   const constants = Constants()
   const keyStorage = constants.KEY_ACCESS_TOKEN
+  function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",",isShowUnit = true) {
+    try {
+      decimalCount = Math.abs(decimalCount);
+      decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
 
+      const negativeSign = amount < 0 ? "-" : "";
+
+      let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+      let j = (i.length > 3) ? i.length % 3 : 0;
+      let unit = isShowUnit?" đ":""
+      return (negativeSign +
+        (j ? i.substr(0, j) + thousands : '') +
+        i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+        (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "") + unit)
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
   const isMobile = () => {
     let check = false
     if(navigator.userAgent.toString().search("Mobile") > -1){
@@ -48,9 +63,12 @@ export default function Library(){
     return decrypt(data,key)
   }
 
-  const getDateTime = () =>{
-    const now = new Date();
-    return date.format(now, 'YYYY/MM/DD HH:mm:ss');
+  const getDateTime = (now = new Date(),isBE = true) =>{
+    if (isBE){
+      return date.format(now, 'YYYY/MM/DD HH:mm:ss');
+    }else {
+      return date.format(now, 'HH:mm:ss DD/MM/YYYY');
+    }
   }
 
   const getDate = () => {
@@ -239,7 +257,8 @@ export default function Library(){
     isMobile,
     checkLogin,
     getSessionStorageByKey,
-    setSessionStorageByKey
+    setSessionStorageByKey,
+    formatMoney
   }
 
 }

@@ -28,7 +28,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
       if(!publics.library.checkLogin()){
         router.push(publics.url.PATH_LOGIN)
       }else{
-        if(router.pathname.split('/')[1]===""){
+        if(router.pathname.split('/')[1]==""){
           setSelected('home')
         }else{
           setSelected(router.pathname.split('/')[1])
@@ -113,7 +113,6 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     }
   }
 
-  console.log("selected",selected)
   return(
       <>
         <HeaderComponent data={{title: title}} />
@@ -141,7 +140,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                                   <span className={style.labelItemMenu}>Trang chủ</span>
                                 </div>
                                 {
-                                  selected==='home' &&
+                                  selected=='home' &&
                                   <div className={style.inlineSelected}/>
                                 }
                               </div>
@@ -156,7 +155,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                                   <span className={style.labelItemMenu}>Thông tin cá nhân</span>
                                 </div>
                                 {
-                                  selected==='info'&&
+                                  selected=='info'&&
                                   <div className={style.inlineSelected}/>
                                 }
                               </div>
@@ -171,7 +170,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                                   <span className={style.labelItemMenu}>Bảo mật</span>
                                 </div>
                                 {
-                                  selected==='policy'&&
+                                  selected=='policy'&&
                                   <div className={style.inlineSelected}/>
                                 }
                               </div>
@@ -186,7 +185,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                                   <span className={style.labelItemMenu}>Thanh toán</span>
                                 </div>
                                 {
-                                  selected==='payment'&&
+                                  selected=='payment'&&
                                   <div className={style.inlineSelected}/>
                                 }
                               </div>
@@ -201,7 +200,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                                   <span className={style.labelItemMenu}>Các gói dịch vụ</span>
                                 </div>
                                 {
-                                  selected==='packet'&&
+                                  selected=='packet'&&
                                   <div className={style.inlineSelected}/>
                                 }
                               </div>

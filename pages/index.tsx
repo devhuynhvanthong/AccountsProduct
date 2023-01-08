@@ -6,34 +6,19 @@ import { useRouter } from 'next/router';
 import Publics_ from '../utils/Publics'
 import HomeDesktopComponent from '../src/components/desktops/Home/HomeComponent'
 import HomeMobileComponent from '../src/components/mobiles/Home/HomeComponent'
+import { useSelector } from 'react-redux'
 
 const Home = (props: any) => {
     const params = props.params
     params.setTitle("Trang chủ")
-    const publics = Publics_()
-    const [dataInfoBasic,setDataInfoBasic] = useState({})
-    useEffect(()=>{
-        (async () => {
-            publics.api.post(publics.url.URL_GET_PERSONAL_INFO,
-                {
-                    balance:true
-                }
-                ).then(data=>{
-                console.log(data)
-                if(data.status == publics.constant.SUCCESS){
-                    setDataInfoBasic(data.body.info)
-                }
-            })
-        })()
-    },[])
     return (
         <>
         {
             !params.isMobile ?
-            <HomeDesktopComponent params={props.params}/>:
+            <HomeDesktopComponent
+              params={props.params}/>:
             <HomeMobileComponent
-                data={dataInfoBasic}
-                params={props.params} />
+              params={props.params} />
         }
 
         </>

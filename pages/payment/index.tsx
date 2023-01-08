@@ -11,7 +11,7 @@ const Payment = (props: any) => {
     const pages = router.query
     const params = props.params
     useEffect(()=>{
-        if(pages.page===undefined && router.isReady){
+        if(pages.page==undefined && router.isReady){
             router.push({
                 query:{
                     page: publics.url.PATH_METHOD_PAYMENT_
@@ -37,7 +37,7 @@ const Payment = (props: any) => {
     return (
         <>
             {
-                pages.page===publics.url.PATH_WITHDRAW_?
+                pages.page==publics.url.PATH_WITHDRAW_?
                 <Withdraw/>:
                 <MethodPayment/>
             }

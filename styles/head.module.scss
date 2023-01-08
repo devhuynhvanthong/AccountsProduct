@@ -7,17 +7,15 @@ $width: 100vw;
 @function widthWrapper($value){
     @return ($width - ($width - $value));
 }
- @function ratioScreen(){
-    @return calc(100vmax/100vmin);
- }
+
 @function sizeWH($value){
     @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
 }
 
 .avatar{
     cursor: pointer;
-    width: heightWrapper(5);
-    height: heightWrapper(5);
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     outline: 1px;
     border: 1px solid #000;
@@ -25,11 +23,4 @@ $width: 100vw;
     1px 1px 5px #4b1010,
     inset 1px 1px 5px #fff,
     inset 1px 1px 5px #fff;
-}
-
-.moduleRight{
-    position: absolute;
-    right: 0%;
-    top: heightWrapper(2);
-    margin-right: widthWrapper(2);
 }

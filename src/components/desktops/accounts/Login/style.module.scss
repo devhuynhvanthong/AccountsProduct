@@ -9,9 +9,10 @@ $width: 100vw;
 }
 
 .formContent{
-    width: widthWrapper(30);
+    max-width: widthWrapper(30);
+    width: 350px;
     top: 50%;
-    transform: translate(0%,-50%);
+    transform: translateY(-50%);
     position: absolute;
     display: flex;
     height: fit-content;
@@ -42,7 +43,8 @@ $width: 100vw;
 }
 
 .wrapper{
-    
+    margin: 0;
+    padding: 0;
     position: relative;
     display: flex;
     grid-template-rows: 1fr auto;

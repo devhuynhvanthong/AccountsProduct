@@ -30,7 +30,7 @@ export default function App({Component, pageProps} : any){
                 router.push(publics.url.PATH_LOGIN)
             }
         }else{
-            if(Layout === Component.Layout){
+            if(Layout == Component.Layout){
                 router.push("/")
             }
         }

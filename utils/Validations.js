@@ -7,7 +7,12 @@ export default function Validation(){
     const REGISTER_SUCCESS = "Đăng ký tài khoản thành công!"
     const REGISTER_FAILED = "Đăng ký thất bại!"
     const ERROR_ENTER_AGAIN_PASSWORD = "Xác nhận mật khẩu không khớp!"
+    const ERROR_CURRENT_PASSWORD_INCORRECT = "Mật khẩu hiện tại không đúng!"
+    const UPDATE_DATA_SUCCESS = 'Cập nhật dữ liệu thành công!'
+    const UPDATE_DATA_FAILED = 'Cập nhật dữ liệu thất bại!'
     return {
+        UPDATE_DATA_SUCCESS,
+        UPDATE_DATA_FAILED,
         FIELD_REQUIRED,
         FORMAT_LENGHT_PASSWORD,
         LOGIN_SUCCESS,
@@ -15,6 +20,7 @@ export default function Validation(){
         FEATURE_NOT_DEVELOP,
         REGISTER_SUCCESS,
         REGISTER_FAILED,
-        ERROR_ENTER_AGAIN_PASSWORD
+        ERROR_ENTER_AGAIN_PASSWORD,
+        ERROR_CURRENT_PASSWORD_INCORRECT
     }
 }

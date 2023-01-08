@@ -7,11 +7,22 @@ $width: 100vw;
 @function widthWrapper($value){
     @return ($width - ($width - $value));
 }
- @function ratioScreen(){
-    @return calc(100vmax/100vmin);
- }
+
 @function sizeWH($value){
     @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
+}
+
+.groups{
+    position: relative;
+    background-color: #4b1010;
+    margin-top: 25px;
+}
+
+.labelChart{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.7em;
 }
 
 .avatarSmall{
@@ -35,27 +46,19 @@ $width: 100vw;
     text-align: right;
 }
 
-.contentSpace{
-    width: initial;
-    margin-top: heightWrapper(1);
-    position: relative;
-}
-
 .borderBalances{
-    
+    position: relative;
+    right: 10px;
+    left: 10px;
     color: white;
-    padding-right: widthWrapper(3);
-    padding-left: widthWrapper(3);
-    padding-top: heightWrapper(3);
-    padding-bottom: heightWrapper(3);
-    background-color: #5f6368;
-    border-radius: 10px;
-    text-align: center;
+    padding: 1.3em;
+    background-color: #073571;
+    border-radius: 20px;
 }
 
 .labelBalance{
-    font-size: sizeWH(3.5);
-    font-weight: 495;
+    font-size: 1.7em;
+    font-weight: 400;
     text-align: center;
     font-family: "sans-serif";
 }
@@ -74,11 +77,10 @@ $width: 100vw;
 .borderTitleModule{
     width: 100%;
     text-align: left;
-    margin-bottom: heightWrapper(4);
 }
 .titleModule{
     font-family: "sans-serif";
-    font-size: sizeWH(3);
+    font-size: 2em;
 }
 
 .divider{

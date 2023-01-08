@@ -7,9 +7,7 @@ $width: 100vw;
 @function widthWrapper($value){
     @return ($width - ($width - $value));
 }
- @function ratioScreen(){
-    @return calc(100vmax/100vmin);
- }
+
 @function sizeWH($value){
     @return calc((heightWrapper($value) + widthWrapper($value)/2)/2);
 }
@@ -36,7 +34,7 @@ $width: 100vw;
 
 .childrenMenuSider{
     border: none;
-    font-size: widthWrapper(3.5);
+    font-size: 1em;
     width: $width;
 }
 
@@ -64,7 +62,7 @@ $width: 100vw;
 }
 
 .labelItemMenu{
-    font-size: widthWrapper(4);
+    font-size: 1em;
     text-align: center;
     transform: translateX(50%);
 }

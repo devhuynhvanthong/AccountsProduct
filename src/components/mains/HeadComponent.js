@@ -4,22 +4,36 @@ import stylesGlobal from '../../../styles/globals.module.scss'
 import Publics_ from '../../../utils/Publics'
 import style from '../../../styles/head.module.scss'
 import _style from '../../../styles/_head.module.scss'
-import {Dropdown,Modal,ConfigProvider} from 'antd'
-import {LogoutOutlined} from '@ant-design/icons';
+import { Dropdown, Modal, ConfigProvider, Skeleton } from 'antd'
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { addInfo } from '../../actions/action_info'
 export default function HeadComponent(props){
     const publics = Publics_()
     const [dataInfoBasic,setDataInfoBasic] = useState({})
     const router = useRouter()
+    const data = useSelector(state => state.info.list)
+    const dispatch = useDispatch()
+    const [loadingAvatar,setLoadingAvatar] = useState(true)
     useEffect(() => {
+      setLoadingAvatar(true)
+      if(data.length<=0){
         (async () => {
-            publics.api.get(publics.url.URL_GET_PERSONAL_INFO).then((data)=>{
-                if(data.status == publics.constant.SUCCESS){
-                    setDataInfoBasic(data.body.info)
-                }
-            })
+          publics.api.get(publics.url.URL_GET_PERSONAL_INFO,{
+            balance:true
+          }).then((data)=>{
+            if(data?.status == publics.constant.SUCCESS){
+              setDataInfoBasic(data.body.info)
+              const action = addInfo(data.body)
+              dispatch(action)
+              setLoadingAvatar(false)
+            }
+          })
 
         })()
+      }
+
     }, [])
 
     const confirm = () => {
@@ -27,8 +41,7 @@ export default function HeadComponent(props){
           title: 'Cảnh báo',
           content: 'Bạn chắt chắn muốn đăng xuất?',
           onOk:(()=>{
-            publics.cookie.Remove(publics.constant.KEY_ACCESS_TOKEN)
-            router.push(publics.url.PATH_LOGIN)
+            router.push(publics.url.PATH_LOGIN + "?session=expired")
           })
         });
       };
@@ -60,12 +73,25 @@ export default function HeadComponent(props){
             <ConfigProvider >
                 <div className={stylesGlobal.headGroup}>
                     <div className={stylesGlobal.head}>
-                        <img src='/images/logo_horizontal.png' className={stylesGlobal.logoHead} />
-                        <div className={style.moduleRight}>
+                      <img src='/images/logo_horizontal.png' className={stylesGlobal.logoHead} />
+                      {
+                        loadingAvatar &&
+                          <Skeleton.Avatar
+                            loading={false}
+                            active={true}
+                            shape={'circle'} />
+                      }
+                      {
+                        !loadingAvatar &&
                         <Dropdown menu={menuProps}>
-                            <img className={style.avatar} src={dataInfoBasic.avatar} />
+                          <Image
+                            width={40}
+                            height={40}
+                            fallback={'/images/avatar_default.png'}
+                            className={style.avatar}
+                            src={dataInfoBasic.avatar?dataInfoBasic.avatar:'/images/avatar_default.png'} />
                         </Dropdown>
-                        </div>
+                      }
                     </div>
                 </div>
             </ConfigProvider>

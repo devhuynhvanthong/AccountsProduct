@@ -19,6 +19,7 @@ import {
 import { Layout, Menu, Col, Row, Breadcrumb } from 'antd';
 import Publics_ from "../../../utils/Publics";
 import FooterComponent from "./FooterComponent";
+import styles from '../../../styles/globals.module.scss'
 
 type ParamMenu = {
   children: React.ReactNode,
@@ -89,34 +90,34 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
       },
       {
         key: 'payment',
-        label: <button className={styleGlobal.titleButton}>Thanh toán</button>,
-        icon: <SketchOutlined />,
-        children: [
-          {
-            key: 'method-payment',
-            label: <p className={styleGlobal.titleChildren}>Phương thức thanh toán</p>,
-            icon: <CreditCardOutlined />
-          },
-          {
-            key: 'withdraw',
-            label: <p className={styleGlobal.titleChildren}>Rút tiền</p>,
-            icon: <WalletOutlined />
-          },
-          {
-            key: 'deposit',
-            label: <p className={styleGlobal.titleChildren}>Nạp tiền</p>,
-            icon: <DollarCircleOutlined />
-          },
-          {
-            key: 'history-payment',
-            label: <p className={styleGlobal.titleChildren}>Lịch sử giao dịch</p>,
-            icon: <FileDoneOutlined />
-          }
-        ]
+        label: <button  style={{cursor: 'none'}} className={styleGlobal.titleButton}>Thanh toán</button>,
+        icon: <SketchOutlined style={{cursor: 'none'}}/>,
+        // children: [
+        //   {
+        //     key: 'method-payment',
+        //     label: <p className={styleGlobal.titleChildren}>Phương thức thanh toán</p>,
+        //     icon: <CreditCardOutlined />
+        //   },
+        //   {
+        //     key: 'withdraw',
+        //     label: <p className={styleGlobal.titleChildren}>Rút tiền</p>,
+        //     icon: <WalletOutlined />
+        //   },
+        //   {
+        //     key: 'deposit',
+        //     label: <p className={styleGlobal.titleChildren}>Nạp tiền</p>,
+        //     icon: <DollarCircleOutlined />
+        //   },
+        //   {
+        //     key: 'history-payment',
+        //     label: <p className={styleGlobal.titleChildren}>Lịch sử giao dịch</p>,
+        //     icon: <FileDoneOutlined />
+        //   }
+        // ]
       },
       {
         key: 'packet',
-        label: <p className={styleGlobal.title}>Các gói dịch vụ</p>,
+        label: <p style={{cursor: 'none'}} className={styleGlobal.title}>Các gói dịch vụ</p>,
         icon: <CloudServerOutlined />
       }
       
@@ -200,39 +201,37 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
           active?
             publics.library.checkLogin()?
               <div>
-                <HeadComponent isMobile={false}/>
-                <Container>
-                  <Row>
-                    <Col>
-                      <Sider width={'15vw'}
-                        className={styleGlobal.menuSider}>
-                        <Menu
-                          onSelect={(key_)=>onSelectMenuListener(key_.key)}
-                          mode="inline"
-                          defaultOpenKeys={[router.pathname.split('/')[1]]}
-                          defaultSelectedKeys={[getKeyPage() || 'home']}
-                          items={items2}
-                          className={styleGlobal.childrenMenuSider}
-                        />
-                      </Sider>
-                    </Col>
-                    <Col>
-                    <div className={styleGlobal.container}>
+                <div>
+                  <HeadComponent isMobile={false}/>
+                </div>
+                <div className={styleGlobal.screensBody}>
+                  <div className={styleGlobal.menuSider}>
+                    <Sider style={{marginTop:5}} width={'15vw'}>
+                      <Menu
+                        onSelect={(key_)=>onSelectMenuListener(key_.key)}
+                        mode="inline"
+                        defaultOpenKeys={[router.pathname.split('/')[1]]}
+                        defaultSelectedKeys={[getKeyPage() || 'home']}
+                        items={items2}
+                        className={styleGlobal.childrenMenuSider}
+                      />
+                    </Sider>
+                  </div>
+
+                  <div className={styleGlobal.container}>
+                    <div style={{
+                    }}>
                       <Breadcrumb className={styleGlobal.breadcrumb}>
-                        <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} /> 
-                        {breadcrumb} 
+                        <DoubleRightOutlined className={styleGlobal.iconBreadcrumb} />
+                        {breadcrumb}
                       </Breadcrumb>
                       <hr style={{width: '15vw', float:"left"}}/>
-                      <div className={styleGlobal.wrapper}>
-                        <div className={styleGlobal.body}>
-                          {children}
-                        </div>
-                        <FooterComponent/>
-                      </div>
                     </div>
-                    </Col>
-                  </Row>
-                </Container>
+                    <div className={styleGlobal.wrapper}>
+                      {children}
+                    </div>
+                  </div>
+                </div>
               </div>
             :<div/>
           :<div/>

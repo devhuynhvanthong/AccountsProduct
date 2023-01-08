@@ -27,7 +27,6 @@ export default function Login(props: any){
 
         if (router.isReady){
             const session = router.query.session
-            console.log(router.query,session=='expired')
             if (session=='expired'){
                 handleLogout()
             }
@@ -35,10 +34,13 @@ export default function Login(props: any){
     },[router.isReady])
     function handleLogout() {
         publics.api.post(publics.url.URL_LOGOUT,).then(response=>{
-            if (response.status!=publics.constant.SUCCESS){
-                publics.library.createNotification(publics.constant.ERROR,"Đăng xuất thất bại!")
-            }else{
-                publics.cookie.Remove(publics.constant.KEY_ACCESS_TOKEN)
+            if (response){
+                if (response.status!=publics.constant.SUCCESS){
+
+                    publics.library.createNotification(publics.constant.ERROR,"Đăng xuất thất bại!")
+                }else{
+                    publics.cookie.Remove(publics.constant.KEY_ACCESS_TOKEN)
+                }
             }
         })
     }
@@ -49,7 +51,7 @@ export default function Login(props: any){
                 const query = await publics.api.get(publics.url.URL_GET_DOMAIN,{
                     code_service: domain
                 })
-                if(query.status===publics.constant.SUCCESS){
+                if(query.status==publics.constant.SUCCESS){
                     publics.library.startPageUrl(query.body)
                 }else{
                     router.push("/")
@@ -62,7 +64,7 @@ export default function Login(props: any){
           }
     }
 
-    const handleLogin = (event_: Event) => {
+    const handleLogin = () => {
         if(isClickLogin){
             let browserName;
 
@@ -90,8 +92,8 @@ export default function Login(props: any){
                 setClickLogin(false)
                 publics.api.post(publics.url.URL_LOGIN, body).then(data=>{
 
-                    if(data.status==publics.constant.SUCCESS){
-                        if(data.category === publics.constant.VALIDATE){
+                    if(data?.status==publics.constant.SUCCESS){
+                        if(data.category == publics.constant.VALIDATE){
                             publics.library.createNotification(publics.constant.ERROR,data.data)
                         }else{
                             publics.library.createNotification(publics.constant.SUCCESS,publics.validation.LOGIN_SUCCESS)
@@ -105,9 +107,8 @@ export default function Login(props: any){
                         tranferPageBeforLogin()
                     }else{
                         setPassword("")
-
-                        if(data.category === publics.constant.VALIDATE){
-                            publics.library.createNotification(publics.constant.ERROR,data.data)
+                        if(data.category == publics.constant.VALIDATE){
+                            publics.library.createNotification(publics.constant.ERROR,data.message)
                         }else{
                             publics.library.createNotification(publics.constant.ERROR,publics.validation.LOGIN_FAILED)
                         }
@@ -149,8 +150,8 @@ export default function Login(props: any){
     }
 
     const handleEnterLogin = (event: any) => {
-        if(event.key === 'Enter'){
-            handleLogin(event)
+        if(event.key == 'Enter'){
+            handleLogin()
         }
     }
     const variables = {

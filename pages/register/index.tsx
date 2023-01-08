@@ -24,22 +24,22 @@ export default function Register(props: any){
     const handleRegister = async (event_: Event) => {
         if(isClickRegister){
             
-            if (password.length > 0 && username.length > 0 && againPassword.length > 0 && password === againPassword) {
+            if (password.length > 0 && username.length > 0 && againPassword.length > 0 && password == againPassword) {
                 let body = {
                     username: username,
                     password: password
                 }
                 setClickRegister(false)
                 let data = await publics.api.post(publics.url.URL_REGISTER, body)
-                if(data.status==publics.constant.SUCCESS){
+                if(data?.status==publics.constant.SUCCESS){
                     publics.library.createNotification(publics.constant.SUCCESS,publics.validation.REGISTER_SUCCESS)
                     router.push(publics.url.PATH_LOGIN)
                 }else{
                     setClickRegister(true)
                     setPassword("")
                     setAgainPassword("")
-                    if(data.category === publics.constant.VALIDATE){
-                        publics.library.createNotification(publics.constant.ERROR,data.data)
+                    if(data.category == publics.constant.VALIDATE){
+                        publics.library.createNotification(publics.constant.ERROR,data.message)
                     }else{
                         publics.library.createNotification(publics.constant.ERROR,publics.validation.REGISTER_FAILED)
                     }

@@ -1,6 +1,6 @@
 export default function Urls(){
-    const BASE_URL = "https://api-account.aigoox.com/"
-    // const BASE_URL = "http://127.0.0.1:8000/"
+    // const BASE_URL = "https://api-account.aigoox.com/"
+    const BASE_URL = "http://127.0.0.1:8000/"
     const BASE_URL_RESOURCES = "https://resources.aigoox.com/";
     const API = BASE_URL + "api/"
 
@@ -9,6 +9,10 @@ export default function Urls(){
     const URL_GET_PERSONAL_INFO = API + 'get_personal_info'
     const URL_REGISTER =  API + "register"
     const URL_LOGOUT = API + 'logout'
+    const URL_GET_LOGIN_HISTORY = API + 'get_login_history'
+    const URL_GET_HISTORY_CHANGE_PASSWORD = API + 'get_history_change_password'
+    const URL_CHANGE_PASSWORD = API + 'change_password'
+
 
     const PATH_REGISTER = "register"
     const PATH_LOGIN = "login"
@@ -30,6 +34,8 @@ export default function Urls(){
     const PATH_DEPOSIT_ = 'deposit'
     const PATH_HISTORY_PAYMENT_ = 'history-payment'
     return {
+        URL_CHANGE_PASSWORD,
+        URL_GET_LOGIN_HISTORY,
         PATH_METHOD_PAYMENT_,
         PATH_WITHDRAW_,
         PATH_DEPOSIT_,
@@ -55,7 +61,8 @@ export default function Urls(){
         PATH_PAYMENT,
         PATH_INTRODUCE,
         URL_REGISTER,
-        URL_LOGOUT
+        URL_LOGOUT,
+        URL_GET_HISTORY_CHANGE_PASSWORD
 
     }
 }
