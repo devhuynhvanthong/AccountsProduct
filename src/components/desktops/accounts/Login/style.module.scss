@@ -9,13 +9,12 @@ $width: 100vw;
 }
 
 .formContent{
-    max-width: widthWrapper(30);
-    width: 350px;
+    max-width: widthWrapper(50);
+    width: max-content;
     top: 50%;
     transform: translateY(-50%);
     position: absolute;
-    display: flex;
-    height: fit-content;
+    height: max-content;
     vertical-align: middle;
     justify-items: center;
     text-align: center;
@@ -28,7 +27,10 @@ $width: 100vw;
 }
 
 .formContentChild{
-    margin: widthWrapper(3);
+    margin: 60px;
+    min-width: 300px;
+    width: 300px;
+    max-width: 40%;
 }
 
 .labelNotificationGroup{
@@ -36,8 +38,8 @@ $width: 100vw;
 }
 
 .labelError{
-    font-size: widthWrapper(0.9);
-    line-height: widthWrapper(0.9);
+    font-size: 1em;
+    line-height: 1em;
     color: red;
     font-style: italic;
 }
@@ -58,7 +60,6 @@ $width: 100vw;
 }
 
 .input:focus + label,.input:valid + label{
-    margin-top: heightWrapper(1);
     font-size: 80%;
     font-weight: 350;
     border-radius: 5px;
@@ -83,8 +84,8 @@ $width: 100vw;
 }
 
 .input{
-    
-    width: initial;
+
+    width: 100%;
     border-radius: 10px;
     color: #202124;
     border: 1px solid #dadce0;
@@ -103,27 +104,25 @@ $width: 100vw;
 }
 
 .label{
-    font-family: "sans-serif";
+    font-family: "Times New Roman, sans-serif", serif;
     text-align: left;
-    margin-left: 3%;
-    margin-bottom: 1.5%;
+    margin-left: 5px;
+    margin-bottom: 5px;
     font-weight: 600;
-    font-size: calc((widthWrapper(1.5) + heightWrapper(1.5))/2);
+    font-size: 1.2em;
 }
 
 .inputGroup{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+    text-align: left;
     margin-top: 4%;
     width: 100%;
 }
 
 .buttonGroups{
-    margin-top: heightWrapper(5);
+    margin-top: 20px;
     display: flex;
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .buttonGroup{
@@ -139,13 +138,14 @@ $width: 100vw;
     flex-grow: 1;
     float: left;
     color: #1a73e8;
+    font-size: 1.2em;
 }
 .labelButton{
     font-family: "sans-serif";
     border-radius: 9px;
-    padding: heightWrapper(1.5) widthWrapper(2);
+    padding: 10px 20px;
     text-align: center;
-    font-size: widthWrapper(1);
+    font-size: 1.2em;
     border: 0px solid transparent;
     cursor: pointer;
 }
@@ -156,7 +156,7 @@ $width: 100vw;
 }
 
 .labelButtonV2{
-    font-size: widthWrapper(1);
+    font-size: 1.2em;
     flex-grow: 2;
     float: right;
     color: white;

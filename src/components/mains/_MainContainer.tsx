@@ -24,7 +24,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     const [selected,setSelected] = useState('home')
     const [active,setActive] = useState(false)
     useEffect(()=>{
-      
+
       if(!publics.library.checkLogin()){
         router.push(publics.url.PATH_LOGIN)
       }else{
@@ -37,7 +37,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
           setActive(true)
         }
       }
-      
+
     },[router.query,router.pathname])
     const { Sider } = Layout;
 
@@ -123,7 +123,7 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
                 <Container>
                   <Row>
                     <Col>
-                      <Sider className={style.siderHeader} width={'100vw'}>
+                      <Sider className={style.siderHeader}>
                           <Menu
                             onSelect={(key_)=>onSelectMenuListener(key_.key)}
                             mode="horizontal"

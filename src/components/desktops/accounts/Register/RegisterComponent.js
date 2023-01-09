@@ -14,25 +14,31 @@ export default function RegisterDesktopComponent(props){
             <div className={style.wrapper}>
                 <div className={style.formContent}>
                     <div className={style.formContentChild}>
-                        <Spin 
-                            tip={"Đang tải..."} 
+                        <Spin
+                            tip={"Đang tải..."}
                             spinning={!variables.isClickRegister} >
                                 <div>
-                                    <img src="images/logo_horizontal.png" className={style.logo}/>
+                                    <img
+                                      src="/images/logo_horizontal.png"
+                                      className={style.logo}/>
                                 </div>
-                                
+
                                 <div className={styleGlobals.titileContent}>
                                     <span>Tạo Tài khoản AiGooX</span>
                                 </div>
                                 <div className={style.inputGroup}>
-                                    <label className={style.label}>Tài khoản <RedStar /></label>
+                                    <div>
+                                      <label className={style.label}>Tài khoản <RedStar /></label>
+                                    </div>
                                     <input className={style.input} value={variables.username} onChange={(e) => variables.handleEnterUsername(e)} placeholder="Nhập tài khoản..." required />
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorUsername}>
                                     <p className={style.labelError}>{variables.errorUsername}</p>
                                 </div>
                                 <div className={style.inputGroup}>
-                                    <label className={style.label}>Mật khẩu <RedStar /></label>
+                                    <div>
+                                      <label className={style.label}>Mật khẩu <RedStar /></label>
+                                    </div>
                                     <input className={style.input} value={variables.password} onChange={(e) => variables.handleEnterPassword(e)} type='password' placeholder="Nhập mật khẩu..." required />
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorPassword}>
@@ -47,7 +53,9 @@ export default function RegisterDesktopComponent(props){
                                 </div>
                                 <div className={style.buttonGroups}>
                                     <div className={style.buttonGroup}>
-                                        <button onClick={()=> variables.handleLogin()} className={`${style.labelButtonV1} ${style.labelButton}`}>
+                                        <button
+                                          onClick={()=> variables.handleLogin()}
+                                          className={`${style.labelButtonV1} ${style.labelButton}`}>
                                             Đăng nhập
                                         </button>
                                     </div>
@@ -56,15 +64,15 @@ export default function RegisterDesktopComponent(props){
                                         <button className={`${style.labelButtonV2} ${style.labelButton}`} onClick={(e) => variables.handleRegister(e)}>
                                             Đăng ký
                                         </button>
-                                        
+
                                     </div>
                                 </div>
                         </Spin>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </>
     )
 }

@@ -14,11 +14,15 @@ export default function LoginDesktopComponents(props){
             <div className={style.wrapper}>
                 <div className={style.formContent}>
                     <div className={style.formContentChild}>
-                        <Spin 
-                            tip={<span className={style.labelLoading}>Đang tải...</span>} 
+                        <Spin
+                            tip={<span className={style.labelLoading}>Đang tải...</span>}
                             spinning={!variables.isClickLogin} >
                                 <div>
-                                    <img src="images/logo.png" className={style.logo}/>
+
+                                  <img
+                                    src="/images/logo.png"
+                                    className={style.logo}
+                                    alt={"Logo account aigoox"}/>
                                 </div>
                                 <div className={styleGlobals.titileContent}>
                                     <span>Đăng nhập</span>
@@ -27,14 +31,18 @@ export default function LoginDesktopComponents(props){
                                     <span>Sử dụng tài khoản AiGooX của bạn!</span>
                                 </div>
                                 <div className={style.inputGroup}>
-                                    <label className={style.label}>Tài khoản</label>
+                                    <div>
+                                      <label className={style.label}>Tài khoản</label>
+                                    </div>
                                     <input className={style.input} onKeyUp={variables.handleEnterLogin} value={variables.username} onChange={(e) => variables.handleEnterUsername(e)} placeholder="Nhập tài khoản của bạn..." required />
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorUsername}>
                                     <p className={style.labelError}>{variables.errorUsername}</p>
                                 </div>
                                 <div className={style.inputGroup}>
-                                    <label className={style.label}>Mật khẩu</label>
+                                    <div>
+                                      <label className={style.label}>Mật khẩu</label>
+                                    </div>
                                     <input className={style.input} onKeyUp={variables.handleEnterLogin} value={variables.password} onChange={(e) => variables.handleEnterPassword(e)} type='password' placeholder="Nhập mật khẩu của bạn..." required />
                                 </div>
                                 <div className={style.labelNotificationGroup} hidden={!variables.isShowErrorPassword}>
@@ -46,7 +54,9 @@ export default function LoginDesktopComponents(props){
 
                                 <div className={style.buttonGroups}>
                                     <div className={style.buttonGroup}>
-                                        <button onClick={()=> variables.handleRegister()} className={`${style.labelButtonV1} ${style.labelButton}`}>
+                                        <button
+                                          onClick={()=> variables.handleRegister()}
+                                          className={`${style.labelButtonV1} ${style.labelButton}`}>
                                             Đăng ký
                                         </button>
                                     </div>
@@ -60,9 +70,9 @@ export default function LoginDesktopComponents(props){
                         </Spin>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </>
     )
 }

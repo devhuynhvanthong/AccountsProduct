@@ -4,8 +4,8 @@ import HeaderComponent from "./HeaderComponent";
 import HeadComponent from "./HeadComponent";
 import styleGlobal from '../../../styles/globals.module.scss'
 import Container from "react-bootstrap/Container";
-import { 
-  HomeOutlined, 
+import {
+  HomeOutlined,
   SafetyCertificateOutlined,
   UserOutlined,
   CreditCardOutlined,
@@ -20,7 +20,8 @@ import { Layout, Menu, Col, Row, Breadcrumb } from 'antd';
 import Publics_ from "../../../utils/Publics";
 import FooterComponent from "./FooterComponent";
 import styles from '../../../styles/globals.module.scss'
-
+import store from '../../store'
+import { Provider } from 'react-redux'
 type ParamMenu = {
   children: React.ReactNode,
   title ?: String
@@ -30,6 +31,16 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
     const router = useRouter()
     const [breadcrumb,setBreadcrumb] = useState(<Breadcrumb.Item>Trang chủ</Breadcrumb.Item>)
     const [active,setActive] = useState(false)
+    let _widthMenu = -1
+
+  useEffect(()=>{
+    if (_widthMenu == -1){
+
+      const _width = document.getElementById('childrenMenuSider')
+      // @ts-ignore
+      _widthMenu = _width?.clientWidth
+    }
+  },[])
     useEffect(()=>{
       if(!publics.library.checkLogin()){
         router.push(publics.url.PATH_LOGIN)
@@ -67,11 +78,9 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
           setActive(true)
         }
       }
-      
+
     },[router.query,router.pathname])
-    
     const { Sider } = Layout;
-    
     const items2 = [
       {
         key: 'home',
@@ -90,41 +99,40 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
       },
       {
         key: 'payment',
-        label: <button  style={{cursor: 'none'}} className={styleGlobal.titleButton}>Thanh toán</button>,
+        label: <button className={styleGlobal.titleButton}>Thanh toán</button>,
         icon: <SketchOutlined style={{cursor: 'none'}}/>,
-        // children: [
-        //   {
-        //     key: 'method-payment',
-        //     label: <p className={styleGlobal.titleChildren}>Phương thức thanh toán</p>,
-        //     icon: <CreditCardOutlined />
-        //   },
-        //   {
-        //     key: 'withdraw',
-        //     label: <p className={styleGlobal.titleChildren}>Rút tiền</p>,
-        //     icon: <WalletOutlined />
-        //   },
-        //   {
-        //     key: 'deposit',
-        //     label: <p className={styleGlobal.titleChildren}>Nạp tiền</p>,
-        //     icon: <DollarCircleOutlined />
-        //   },
-        //   {
-        //     key: 'history-payment',
-        //     label: <p className={styleGlobal.titleChildren}>Lịch sử giao dịch</p>,
-        //     icon: <FileDoneOutlined />
-        //   }
-        // ]
+        children: [
+          {
+            key: 'method-payment',
+            label: <p className={styleGlobal.titleChildren}>Phương thức thanh toán</p>,
+            icon: <CreditCardOutlined />
+          },
+          {
+            key: 'withdraw',
+            label: <p className={styleGlobal.titleChildren}>Rút tiền</p>,
+            icon: <WalletOutlined />
+          },
+          {
+            key: 'deposit',
+            label: <p className={styleGlobal.titleChildren}>Nạp tiền</p>,
+            icon: <DollarCircleOutlined />
+          },
+          {
+            key: 'history-payment',
+            label: <p className={styleGlobal.titleChildren}>Lịch sử giao dịch</p>,
+            icon: <FileDoneOutlined />
+          }
+        ]
       },
       {
         key: 'packet',
-        label: <p style={{cursor: 'none'}} className={styleGlobal.title}>Các gói dịch vụ</p>,
+        label: <p className={styleGlobal.title}>Các gói dịch vụ</p>,
         icon: <CloudServerOutlined />
       }
-      
+
     ]
 
     const onSelectMenuListener = (keys: any) =>{
-
       let path = ""
       switch(keys){
         case "home":
@@ -193,32 +201,44 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
         return 'packet'
     }
   }
-
+  function handleOpenChangeMenu(e: any){
+      if (e.length>1){
+        // @ts-ignore
+        document.getElementById('container').style.left = "65px"
+      }else {
+        // @ts-ignore
+        document.getElementById('container').style.left = "0px"
+      }
+  }
   return(
-      <>
+    <Provider store={store}>
+      <div style={{width: '100%', height: '100%'}}>
         <HeaderComponent data={{title: title}} />
         {
           active?
             publics.library.checkLogin()?
-              <div>
+              <div  style={{width: '100%', height: '100%'}}>
                 <div>
                   <HeadComponent isMobile={false}/>
                 </div>
                 <div className={styleGlobal.screensBody}>
                   <div className={styleGlobal.menuSider}>
-                    <Sider style={{marginTop:5}} width={'15vw'}>
+                    <Sider style={{marginTop:5}}>
                       <Menu
+                        style={{ transition: 'left 1.3s'}}
+                        onOpenChange={handleOpenChangeMenu}
                         onSelect={(key_)=>onSelectMenuListener(key_.key)}
                         mode="inline"
                         defaultOpenKeys={[router.pathname.split('/')[1]]}
                         defaultSelectedKeys={[getKeyPage() || 'home']}
                         items={items2}
+                        id={'childrenMenuSider'}
                         className={styleGlobal.childrenMenuSider}
                       />
                     </Sider>
                   </div>
 
-                  <div className={styleGlobal.container}>
+                  <div id={'container'} className={styleGlobal.container}>
                     <div style={{
                     }}>
                       <Breadcrumb className={styleGlobal.breadcrumb}>
@@ -236,7 +256,8 @@ const MainContainer: React.FC<ParamMenu> = ({children,title}) => {
             :<div/>
           :<div/>
         }
-      </>
+      </div>
+    </Provider>
   )
 }
 

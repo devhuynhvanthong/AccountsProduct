@@ -1,6 +1,5 @@
 export default function Urls(){
-    // const BASE_URL = "https://api-account.aigoox.com/"
-    const BASE_URL = "http://127.0.0.1:8000/"
+    const BASE_URL = "https://api-dev-accounts.aigoox.com/"
     const BASE_URL_RESOURCES = "https://resources.aigoox.com/";
     const API = BASE_URL + "api/"
 

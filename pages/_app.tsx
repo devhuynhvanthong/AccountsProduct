@@ -41,10 +41,10 @@ export default function App({Component, pageProps} : any){
     },[])
 
     return (
-        <>
+        <div style={{width: '100%', height: '100%'}}>
             {
                 client &&
-                <div>
+                <div style={{width: '100%', height: '100%'}}>
                     <Layout component={Component.Layout} isMobile={isMobile} title={title}>
                         <Component {...pageProps} params={{
                             isMobile:isMobile,
@@ -54,7 +54,7 @@ export default function App({Component, pageProps} : any){
                 </div>
             }
 
-        </>
+        </div>
 
     )
 }

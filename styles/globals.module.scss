@@ -69,19 +69,23 @@ $width: 100%;
 }
 
 .titileContent{
-    font-family: "sans-serif";
-    font-size: widthWrapper(2);
+    font-family: "Times New Roman,sans-serif", serif;
+    font-size: 2em;
+    position: relative;
+    margin: 20px auto 0px auto;
 }
 
 .descriptionContent{
     font-family: "sans-serif";
-    font-size: widthWrapper(1.2);
+    font-size: 1em;
+    margin-top: 10px;
+    font-style: italic;
 }
 
 .buttonText{
-    font-family: "sans-serif";
-    font-size: widthWrapper(1.25);
-    margin-top: heightWrapper(2);
+    font-family: "Times New Roman, sans-serif", serif;
+    font-size: 1.2em;
+    margin-top: 4px;
     color: #2178eb;
 }
 
@@ -92,10 +96,8 @@ $width: 100%;
 
 .wrapper{
     position: relative;
-    margin-top: 20px;
-    padding-bottom: 30px;
-    min-width: 1000px;
-    top: 20px
+    margin: 0 30px 50px 0px;
+    top: 20px;
 }
 
 ._wrapper{
@@ -157,6 +159,7 @@ $width: 100%;
 }
 
 .screens{
+    height: 100%;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -189,26 +192,27 @@ $width: 100%;
 }
 
 .screensBody{
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
-    width: 100%;
-    background-color: #fff;
     position: relative;
     display: flex;
     top: 70px;
     bottom: 0;
     left: 0;
     right: 0;
-    min-height: calc(100% - 70px);
 }
-.screens_{
-    display: flex;
-    width: $width;
-    justify-content: center;
-    justify-items:center;
-    flex-wrap: wrap;
-    min-height: heightWrapper(100);
+.screens{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
+    display: block;
 }
 
 .body_{
@@ -236,11 +240,8 @@ $width: 100%;
 .container{
     z-index: 0;
     position: relative;
-    left: 20px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: max-content;
+    width: 100%;
+    transition: left 1.3s;
 }
 .menuSider{
     z-index: 1;
@@ -248,14 +249,18 @@ $width: 100%;
     position: relative;
     left: 0;
     bottom: 0;
+    width: max-content;
+    height: 100%;
+    transition: width 1.3s;
 }
 
 .childrenMenuSider{
     font-size: 1em;
     height: 100%;
-    width: max-content;
     top: 0;
-    position: absolute;
+    width: max-content;
+    user-select: none;
+    transition: width 2s !important;
 }
 
 .breadcrumb{
@@ -278,6 +283,7 @@ $width: 100%;
     font-family: "sans-serif";
     border: none;
     background-color: transparent;
+    transition: width 1.3s;
 }
 
 .titleChildren{

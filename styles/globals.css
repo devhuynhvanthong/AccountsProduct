@@ -1,6 +1,6 @@
 html,
 body {
-  min-width: 1200px;
+  width: 100%;
   font-size: 100%;
   max-width: 100%;
   line-height: 1.6em;
